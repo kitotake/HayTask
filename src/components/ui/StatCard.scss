@@ -18,14 +18,14 @@
   }
 
   &__icon {
-    font-size: 2.4rem;
-    width: 56px;
-    height: 56px;
+    width: 52px;
+    height: 52px;
     border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    font-size: 1.4rem;
   }
 
   &__body {
@@ -58,31 +58,31 @@
   // Color variants
   &--gold {
     border-color: rgba(245, 166, 35, 0.2);
-    .stat-card__icon { background: rgba(245, 166, 35, 0.12); }
+    .stat-card__icon { background: rgba(245, 166, 35, 0.12); color: var(--hay-amber); }
     .stat-card__value { color: var(--hay-amber); }
   }
 
   &--green {
     border-color: rgba(92, 184, 92, 0.2);
-    .stat-card__icon { background: rgba(92, 184, 92, 0.12); }
+    .stat-card__icon { background: rgba(92, 184, 92, 0.12); color: var(--hay-green); }
     .stat-card__value { color: var(--hay-green); }
   }
 
   &--blue {
     border-color: rgba(33, 150, 243, 0.2);
-    .stat-card__icon { background: rgba(33, 150, 243, 0.12); }
+    .stat-card__icon { background: rgba(33, 150, 243, 0.12); color: var(--hay-blue); }
     .stat-card__value { color: var(--hay-blue); }
   }
 
   &--red {
     border-color: rgba(231, 76, 60, 0.2);
-    .stat-card__icon { background: rgba(231, 76, 60, 0.12); }
+    .stat-card__icon { background: rgba(231, 76, 60, 0.12); color: var(--hay-red); }
     .stat-card__value { color: var(--hay-red); }
   }
 
   &--sky {
     border-color: rgba(78, 205, 196, 0.2);
-    .stat-card__icon { background: rgba(78, 205, 196, 0.12); }
+    .stat-card__icon { background: rgba(78, 205, 196, 0.12); color: #2a9d8f; }
     .stat-card__value { color: #2a9d8f; }
   }
 }

@@ -5,9 +5,13 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import {
+  faTimes, faPlus, faTrash,
+  faTruck, faUser, faShip,
+  faCoins, faStar, faClock
+} from '@fortawesome/free-solid-svg-icons';
 import type { Order, OrderType } from '../../types';
-import { ITEMS, getUnlockedItems } from '../../data/items';
+import { getUnlockedItems } from '../../data/items';
 import { useGame } from '../../store/GameStore';
 import { nanoid } from '../../services/nanoid';
 import './AddOrderModal.scss';
@@ -23,19 +27,16 @@ interface ItemEntry {
 
 export function AddOrderModal({ onClose }: AddOrderModalProps) {
   const { state, dispatch } = useGame();
-  const [orderType, setOrderType] = useState<OrderType>('truck');
-  const [items, setItems] = useState<ItemEntry[]>([{ itemId: '', quantity: 1 }]);
-  const [reward, setReward] = useState(100);
-  const [xp, setXp] = useState(10);
-  const [expiresIn, setExpiresIn] = useState(4); // hours
+  const [orderType, setOrderType]   = useState<OrderType>('truck');
+  const [items, setItems]           = useState<ItemEntry[]>([{ itemId: '', quantity: 1 }]);
+  const [reward, setReward]         = useState(100);
+  const [xp, setXp]                 = useState(10);
+  const [expiresIn, setExpiresIn]   = useState(4);
 
   const unlockedItems = getUnlockedItems(state.playerLevel);
 
-  const addItem = () => setItems(prev => [...prev, { itemId: '', quantity: 1 }]);
-
-  const removeItem = (idx: number) =>
-    setItems(prev => prev.filter((_, i) => i !== idx));
-
+  const addItem    = () => setItems(prev => [...prev, { itemId: '', quantity: 1 }]);
+  const removeItem = (idx: number) => setItems(prev => prev.filter((_, i) => i !== idx));
   const updateItem = (idx: number, field: keyof ItemEntry, value: string | number) =>
     setItems(prev => prev.map((it, i) => i === idx ? { ...it, [field]: value } : it));
 
@@ -58,10 +59,10 @@ export function AddOrderModal({ onClose }: AddOrderModalProps) {
     onClose();
   };
 
-  const TYPE_OPTIONS: { value: OrderType; label: string; emoji: string }[] = [
-    { value: 'visitor', label: 'Visitor',     emoji: '👤' },
-    { value: 'truck',   label: 'Truck Order', emoji: '🚚' },
-    { value: 'boat',    label: 'Boat Cargo',  emoji: '⛵' },
+  const TYPE_OPTIONS: { value: OrderType; label: string; icon: typeof faTruck }[] = [
+    { value: 'visitor', label: 'Visitor',     icon: faUser  },
+    { value: 'truck',   label: 'Truck Order', icon: faTruck },
+    { value: 'boat',    label: 'Boat Cargo',  icon: faShip  },
   ];
 
   return (
@@ -83,8 +84,8 @@ export function AddOrderModal({ onClose }: AddOrderModalProps) {
         >
           {/* Header */}
           <div className="modal__header">
-            <h2 className="modal__title">➕ Add Order</h2>
-            <button className="modal__close" onClick={onClose}>
+            <h2 className="modal__title">Add Order</h2>
+            <button className="modal__close" onClick={onClose} aria-label="Close">
               <FontAwesomeIcon icon={faTimes} />
             </button>
           </div>
@@ -99,7 +100,7 @@ export function AddOrderModal({ onClose }: AddOrderModalProps) {
                   className={`modal__type-btn ${orderType === opt.value ? 'active' : ''}`}
                   onClick={() => setOrderType(opt.value)}
                 >
-                  <span>{opt.emoji}</span>
+                  <FontAwesomeIcon icon={opt.icon} className="modal__type-icon" />
                   <span>{opt.label}</span>
                 </button>
               ))}
@@ -120,7 +121,7 @@ export function AddOrderModal({ onClose }: AddOrderModalProps) {
                     <option value="">Select item…</option>
                     {unlockedItems.map(item => (
                       <option key={item.id} value={item.id}>
-                        {item.src} {item.name}
+                        {item.name}
                       </option>
                     ))}
                   </select>
@@ -152,10 +153,12 @@ export function AddOrderModal({ onClose }: AddOrderModalProps) {
 
           {/* Rewards */}
           <div className="modal__section">
-            <label className="modal__label">Reward & Timer</label>
+            <label className="modal__label">Reward &amp; Timer</label>
             <div className="modal__reward-grid">
               <div className="modal__field">
-                <label>🪙 Coins Reward</label>
+                <label>
+                  <FontAwesomeIcon icon={faCoins} /> Coins Reward
+                </label>
                 <input
                   type="number"
                   className="input"
@@ -165,7 +168,9 @@ export function AddOrderModal({ onClose }: AddOrderModalProps) {
                 />
               </div>
               <div className="modal__field">
-                <label>⭐ XP Reward</label>
+                <label>
+                  <FontAwesomeIcon icon={faStar} /> XP Reward
+                </label>
                 <input
                   type="number"
                   className="input"
@@ -175,7 +180,9 @@ export function AddOrderModal({ onClose }: AddOrderModalProps) {
                 />
               </div>
               <div className="modal__field">
-                <label>⏱ Expires In (hours)</label>
+                <label>
+                  <FontAwesomeIcon icon={faClock} /> Expires In (hours)
+                </label>
                 <input
                   type="number"
                   className="input"
@@ -196,7 +203,7 @@ export function AddOrderModal({ onClose }: AddOrderModalProps) {
               onClick={handleSubmit}
               disabled={items.every(i => !i.itemId)}
             >
-              ✅ Create Order
+              <FontAwesomeIcon icon={faPlus} /> Create Order
             </button>
           </div>
         </motion.div>

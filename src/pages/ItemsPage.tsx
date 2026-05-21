@@ -4,6 +4,8 @@
 
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Header } from '../components/layout/Header';
 import { ItemCard } from '../components/ui/ItemCard';
 import { useGame } from '../store/GameStore';
@@ -13,11 +15,19 @@ import './ItemsPage.scss';
 
 type SortKey = 'level' | 'time' | 'price' | 'profit' | 'name';
 
+const SORT_LABELS: Record<SortKey, string> = {
+  level:  'Level',
+  time:   'Time',
+  price:  'Price',
+  profit: 'Profit/hr',
+  name:   'Name',
+};
+
 export function ItemsPage() {
   const { state } = useGame();
-  const [search, setSearch] = useState('');
-  const [machine, setMachine] = useState<Machine | 'all'>('all');
-  const [sort, setSort] = useState<SortKey>('level');
+  const [search, setSearch]       = useState('');
+  const [machine, setMachine]     = useState<Machine | 'all'>('all');
+  const [sort, setSort]           = useState<SortKey>('level');
   const [showLocked, setShowLocked] = useState(false);
 
   const items = useMemo(() => {
@@ -43,10 +53,10 @@ export function ItemsPage() {
 
   return (
     <div className="page">
-      <Header title="🌿 All Items" search={search} onSearch={setSearch} />
+      <Header title="All Items" search={search} onSearch={setSearch} />
 
       <div className="page__content">
-        {/* Filters bar */}
+        {/* Filters */}
         <div className="items-page__filters">
           {/* Machine filter */}
           <div className="items-page__filter-group">
@@ -55,7 +65,9 @@ export function ItemsPage() {
               <button
                 className={`items-page__pill ${machine === 'all' ? 'active' : ''}`}
                 onClick={() => setMachine('all')}
-              >All</button>
+              >
+                All
+              </button>
               {MACHINES.map(m => (
                 <button
                   key={m}
@@ -72,16 +84,13 @@ export function ItemsPage() {
           <div className="items-page__filter-group">
             <label className="items-page__filter-label">Sort by</label>
             <div className="items-page__pills">
-              {(['level', 'time', 'price', 'profit', 'name'] as SortKey[]).map(s => (
+              {(Object.keys(SORT_LABELS) as SortKey[]).map(s => (
                 <button
                   key={s}
                   className={`items-page__pill ${sort === s ? 'active' : ''}`}
                   onClick={() => setSort(s)}
                 >
-                  {s === 'level'  ? '🏅 Level' :
-                   s === 'time'   ? '⏱ Time' :
-                   s === 'price'  ? '🪙 Price' :
-                   s === 'profit' ? '💰 Profit/hr' : '🔤 Name'}
+                  {SORT_LABELS[s]}
                 </button>
               ))}
             </div>
@@ -108,17 +117,12 @@ export function ItemsPage() {
         {/* Grid */}
         <div className="items-page__grid">
           {items.map((item, idx) => (
-            <ItemCard
-              key={item.id}
-              item={item}
-              delay={idx}
-              compact={false}
-            />
+            <ItemCard key={item.id} item={item} delay={idx} compact={false} />
           ))}
 
           {items.length === 0 && (
             <motion.div className="items-page__empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-              <span>🔍</span>
+              <FontAwesomeIcon icon={faSearch} className="items-page__empty-icon" />
               <p>No items found. Try adjusting your filters.</p>
             </motion.div>
           )}

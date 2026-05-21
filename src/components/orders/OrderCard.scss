@@ -15,7 +15,6 @@
     background: rgba(92, 184, 92, 0.02);
   }
 
-  // Left accent border by type
   &--green  { border-left: 4px solid var(--hay-green); }
   &--blue   { border-left: 4px solid var(--hay-blue); }
   &--sky    { border-left: 4px solid var(--hay-sky); }
@@ -34,7 +33,12 @@
     gap: 8px;
     flex: 1;
 
-    &-emoji { font-size: 1.2rem; }
+    &-icon {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      width: 18px;
+      text-align: center;
+    }
 
     &-label {
       font-family: var(--font-display);
@@ -50,6 +54,9 @@
   }
 
   &__reward, &__xp {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     font-size: 0.82rem;
     font-weight: 700;
     padding: 4px 10px;
@@ -59,11 +66,13 @@
   &__reward {
     background: rgba(245, 166, 35, 0.12);
     color: var(--hay-amber);
+    svg { font-size: 0.75rem; }
   }
 
   &__xp {
     background: rgba(78, 205, 196, 0.12);
     color: #2a9d8f;
+    svg { font-size: 0.75rem; }
   }
 
   &__timer {
@@ -130,8 +139,6 @@
       border-color: rgba(92, 184, 92, 0.2);
     }
 
-    &-emoji { font-size: 1.1rem; flex-shrink: 0; }
-
     &-name {
       flex: 1;
       font-size: 0.88rem;
@@ -150,8 +157,12 @@
     }
 
     &-stock {
+      display: flex;
+      align-items: center;
+      gap: 4px;
       font-size: 0.75rem;
       color: var(--text-muted);
+      svg { font-size: 0.7rem; }
     }
   }
 
@@ -164,12 +175,12 @@
     cursor: pointer;
     transition: all var(--transition-fast);
     white-space: nowrap;
+    font-family: var(--font-body);
 
     &.can {
       border-color: var(--hay-green);
       color: var(--hay-green);
       background: rgba(92, 184, 92, 0.08);
-
       &:hover { background: var(--hay-green); color: #fff; }
     }
 
@@ -183,12 +194,13 @@
   }
 
   &__done-badge {
-    font-size: 0.72rem;
-    font-weight: 700;
+    font-size: 0.8rem;
     color: var(--hay-green);
     background: rgba(92, 184, 92, 0.12);
-    padding: 3px 8px;
+    padding: 4px 8px;
     border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
   }
 
   &__actions {

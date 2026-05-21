@@ -5,7 +5,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faLightbulb, faFire } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faLightbulb, faFire, faInbox } from '@fortawesome/free-solid-svg-icons';
 import { StatCard } from '../components/ui/StatCard';
 import { OrderCard } from '../components/orders/OrderCard';
 import { ProductionQueue } from '../components/production/ProductionQueue';
@@ -35,12 +35,12 @@ export function Dashboard() {
     return sum + (item?.sellPrice ?? 0) * qty;
   }, 0);
 
-  const topProfitItem = unlockedItems.sort((a, b) => profitPerHour(b) - profitPerHour(a))[0];
+  const topProfitItem = [...unlockedItems].sort((a, b) => profitPerHour(b) - profitPerHour(a))[0];
 
   return (
     <div className="page">
       <Header
-        title="🏡 Dashboard"
+        title="Dashboard"
         search={search}
         onSearch={setSearch}
       />
@@ -87,7 +87,7 @@ export function Dashboard() {
           {/* Left: Orders */}
           <div className="dashboard__column">
             <div className="dashboard__section-header">
-              <h2 className="section-title">📋 Active Orders</h2>
+              <h2 className="section-title">Active Orders</h2>
               <button
                 className="btn btn--primary btn--sm"
                 onClick={() => setShowAddOrder(true)}
@@ -98,7 +98,7 @@ export function Dashboard() {
 
             {activeOrders.length === 0 ? (
               <div className="dashboard__empty">
-                <span>📭</span>
+                <FontAwesomeIcon icon={faInbox} className="dashboard__empty-icon" />
                 <p>No active orders. Add one to get production recommendations!</p>
                 <button className="btn btn--primary" onClick={() => setShowAddOrder(true)}>
                   <FontAwesomeIcon icon={faPlus} /> Add First Order
@@ -117,7 +117,6 @@ export function Dashboard() {
           <div className="dashboard__column">
             <div className="dashboard__section-header">
               <h2 className="section-title">
-                <FontAwesomeIcon icon={faLightbulb} style={{ color: 'var(--hay-gold)' }} />
                 Optimal Queue
               </h2>
             </div>

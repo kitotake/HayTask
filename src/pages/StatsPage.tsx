@@ -1,8 +1,13 @@
 // ============================================================
-// HAYTASK - Stats Page (with real images)
+// HAYTASK - Stats Page
 // ============================================================
 
 import { motion } from 'framer-motion';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faCheckCircle, faCoins, faStar, faBoxOpen,
+  faTrophy, faBolt
+} from '@fortawesome/free-solid-svg-icons';
 import { Header } from '../components/layout/Header';
 import { useGame } from '../store/GameStore';
 import { getUnlockedItems, profitPerHour, formatTime } from '../data/items';
@@ -22,37 +27,48 @@ export function StatsPage() {
     .sort((a, b) => a.productionTime - b.productionTime)
     .slice(0, 10);
 
-  const completed    = state.orders.filter(o => o.status === 'completed');
-  const totalReward  = completed.reduce((s, o) => s + o.reward, 0);
-  const totalXP      = completed.reduce((s, o) => s + o.xp, 0);
-  const stockValue   = Object.entries(state.stock).reduce((s, [id, qty]) => {
+  const completed   = state.orders.filter(o => o.status === 'completed');
+  const totalReward = completed.reduce((s, o) => s + o.reward, 0);
+  const totalXP     = completed.reduce((s, o) => s + o.xp, 0);
+  const stockValue  = Object.entries(state.stock).reduce((s, [id, qty]) => {
     const item = unlockedItems.find(i => i.id === id);
     return s + (item?.sellPrice ?? 0) * qty;
   }, 0);
 
+  const overviewCards = [
+    { icon: faCheckCircle, label: 'Orders Completed', value: completed.length,                color: 'green' },
+    { icon: faCoins,       label: 'Coins Earned',     value: totalReward.toLocaleString(),    color: 'gold'  },
+    { icon: faStar,        label: 'Total XP',          value: totalXP.toLocaleString(),       color: 'sky'   },
+    { icon: faBoxOpen,     label: 'Stock Value',       value: stockValue.toLocaleString(),    color: 'blue'  },
+  ];
+
+  const rankIcon = (idx: number) => {
+    if (idx === 0) return <FontAwesomeIcon icon={faTrophy} style={{ color: '#FFD700' }} />;
+    if (idx === 1) return <FontAwesomeIcon icon={faTrophy} style={{ color: '#C0C0C0' }} />;
+    if (idx === 2) return <FontAwesomeIcon icon={faTrophy} style={{ color: '#CD7F32' }} />;
+    return <span>{idx + 1}</span>;
+  };
+
   return (
     <div className="page">
-      <Header title="📊 Stats" />
+      <Header title="Stats" />
       <div className="page__content">
 
         {/* Overview */}
         <div className="stats__overview">
-          {[
-            { emoji: '✅', label: 'Orders Completed', value: completed.length, color: 'green' },
-            { emoji: '🪙', label: 'Coins Earned',     value: totalReward.toLocaleString(), color: 'gold' },
-            { emoji: '⭐', label: 'Total XP',          value: totalXP.toLocaleString(), color: 'sky' },
-            { emoji: '📦', label: 'Stock Value',       value: stockValue.toLocaleString(), color: 'blue' },
-          ].map((stat, idx) => (
+          {overviewCards.map((card, idx) => (
             <motion.div
-              key={stat.label}
-              className={`stats__card stats__card--${stat.color}`}
+              key={card.label}
+              className={`stats__card stats__card--${card.color}`}
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.07 }}
             >
-              <span className="stats__card-emoji">{stat.emoji}</span>
-              <p className="stats__card-label">{stat.label}</p>
-              <p className="stats__card-value">{stat.value}</p>
+              <div className="stats__card-icon-wrap">
+                <FontAwesomeIcon icon={card.icon} className="stats__card-icon" />
+              </div>
+              <p className="stats__card-label">{card.label}</p>
+              <p className="stats__card-value">{card.value}</p>
             </motion.div>
           ))}
         </div>
@@ -60,18 +76,24 @@ export function StatsPage() {
         <div className="stats__grid">
           {/* Most profitable */}
           <div className="stats__section">
-            <h2 className="section-title">💰 Most Profitable</h2>
+            <h2 className="section-title">Most Profitable</h2>
             <div className="stats__table-wrap">
               <table className="stats__table">
                 <thead>
-                  <tr><th>#</th><th>Item</th><th>Machine</th><th>Price</th><th>Time</th><th>Coins/hr</th></tr>
+                  <tr>
+                    <th>#</th><th>Item</th><th>Machine</th>
+                    <th>Price</th><th>Time</th><th>Coins/hr</th>
+                  </tr>
                 </thead>
                 <tbody>
                   {topProfitable.map((item, idx) => (
-                    <motion.tr key={item.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: idx * 0.04 }}>
-                      <td className="stats__rank">
-                        {idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : idx + 1}
-                      </td>
+                    <motion.tr
+                      key={item.id}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: idx * 0.04 }}
+                    >
+                      <td className="stats__rank">{rankIcon(idx)}</td>
                       <td>
                         <div className="stats__item-name">
                           <ItemImage itemId={item.id} fallback={item.src} size="sm" />
@@ -79,9 +101,13 @@ export function StatsPage() {
                         </div>
                       </td>
                       <td className="stats__muted">{item.machine}</td>
-                      <td className="stats__price">🪙 {item.sellPrice}</td>
+                      <td className="stats__price">
+                        <FontAwesomeIcon icon={faCoins} /> {item.sellPrice}
+                      </td>
                       <td className="stats__muted">{formatTime(item.productionTime)}</td>
-                      <td className="stats__profit">💰 {profitPerHour(item)}</td>
+                      <td className="stats__profit">
+                        <FontAwesomeIcon icon={faCoins} /> {profitPerHour(item)}
+                      </td>
                     </motion.tr>
                   ))}
                 </tbody>
@@ -91,15 +117,22 @@ export function StatsPage() {
 
           {/* Fastest */}
           <div className="stats__section">
-            <h2 className="section-title">⚡ Fastest to Produce</h2>
+            <h2 className="section-title">Fastest to Produce</h2>
             <div className="stats__table-wrap">
               <table className="stats__table">
                 <thead>
-                  <tr><th>#</th><th>Item</th><th>Time</th><th>Price</th><th>XP</th></tr>
+                  <tr>
+                    <th>#</th><th>Item</th><th>Time</th><th>Price</th><th>XP</th>
+                  </tr>
                 </thead>
                 <tbody>
                   {fastest.map((item, idx) => (
-                    <motion.tr key={item.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: idx * 0.04 }}>
+                    <motion.tr
+                      key={item.id}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: idx * 0.04 }}
+                    >
                       <td className="stats__rank">{idx + 1}</td>
                       <td>
                         <div className="stats__item-name">
@@ -107,9 +140,15 @@ export function StatsPage() {
                           <span>{item.name}</span>
                         </div>
                       </td>
-                      <td className="stats__time">⏱ {formatTime(item.productionTime)}</td>
-                      <td className="stats__price">🪙 {item.sellPrice}</td>
-                      <td className="stats__xp">⭐ {item.xp}</td>
+                      <td className="stats__time">
+                        <FontAwesomeIcon icon={faBolt} /> {formatTime(item.productionTime)}
+                      </td>
+                      <td className="stats__price">
+                        <FontAwesomeIcon icon={faCoins} /> {item.sellPrice}
+                      </td>
+                      <td className="stats__xp">
+                        <FontAwesomeIcon icon={faStar} /> {item.xp}
+                      </td>
                     </motion.tr>
                   ))}
                 </tbody>

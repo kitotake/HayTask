@@ -1,10 +1,13 @@
 // ============================================================
-// HAYTASK - Production Queue (with real images)
+// HAYTASK - Production Queue
 // ============================================================
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay, faTimes, faCheckCircle, faClock } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPlay, faTimes, faCheckCircle, faClock,
+  faCoins, faIndustry, faHourglass
+} from '@fortawesome/free-solid-svg-icons';
 import type { ProductionRecommendation } from '../../types';
 import { getItem, formatTime } from '../../data/items';
 import { useGame } from '../../store/GameStore';
@@ -57,7 +60,9 @@ export function ProductionQueue({ recommendations, totalTime, totalProfit }: Pro
         </div>
         <div className="prod-queue__summary-item">
           <span className="prod-queue__summary-label">Est. Profit</span>
-          <span className="prod-queue__summary-value gold">🪙 {totalProfit.toLocaleString()}</span>
+          <span className="prod-queue__summary-value gold">
+            <FontAwesomeIcon icon={faCoins} /> {totalProfit.toLocaleString()}
+          </span>
         </div>
       </div>
 
@@ -67,7 +72,9 @@ export function ProductionQueue({ recommendations, totalTime, totalProfit }: Pro
           {recommendations.slice(0, 15).map((rec, idx) => {
             const item = getItem(rec.itemId);
             if (!item) return null;
-            const isRunning = state.productionQueue.some(t => t.itemId === rec.itemId && t.status === 'running');
+            const isRunning = state.productionQueue.some(
+              t => t.itemId === rec.itemId && t.status === 'running'
+            );
 
             return (
               <motion.div
@@ -85,22 +92,26 @@ export function ProductionQueue({ recommendations, totalTime, totalProfit }: Pro
                 <div className="prod-queue__info">
                   <div className="prod-queue__name">{item.name}</div>
                   <div className="prod-queue__meta">
-                    <span>×{rec.quantity}</span>
-                    <span>⏱ {formatTime(item.productionTime)}</span>
-                    <span>🏭 {item.machine}</span>
+                    <span>x{rec.quantity}</span>
+                    <span><FontAwesomeIcon icon={faHourglass} /> {formatTime(item.productionTime)}</span>
+                    <span><FontAwesomeIcon icon={faIndustry} /> {item.machine}</span>
                   </div>
                   <div className="prod-queue__reason">{rec.reason}</div>
                 </div>
 
                 <div className="prod-queue__profit">
                   <span className="prod-queue__profit-total">
-                    🪙 {(item.sellPrice * rec.quantity).toLocaleString()}
+                    <FontAwesomeIcon icon={faCoins} /> {(item.sellPrice * rec.quantity).toLocaleString()}
                   </span>
                 </div>
 
                 <div className="prod-queue__actions">
                   {!isRunning ? (
-                    <button className="btn btn--green btn--sm btn--icon" onClick={() => startTask(rec)} title="Start">
+                    <button
+                      className="btn btn--green btn--sm btn--icon"
+                      onClick={() => startTask(rec)}
+                      title="Start production"
+                    >
                       <FontAwesomeIcon icon={faPlay} />
                     </button>
                   ) : (
@@ -116,7 +127,7 @@ export function ProductionQueue({ recommendations, totalTime, totalProfit }: Pro
 
         {recommendations.length === 0 && (
           <div className="prod-queue__empty">
-            <span>🎉</span>
+            <FontAwesomeIcon icon={faCheckCircle} className="prod-queue__empty-icon" />
             <p>All orders fulfilled! Add new orders to get recommendations.</p>
           </div>
         )}
@@ -125,7 +136,7 @@ export function ProductionQueue({ recommendations, totalTime, totalProfit }: Pro
       {/* Active tasks */}
       {state.productionQueue.filter(t => t.status !== 'completed').length > 0 && (
         <div className="prod-queue__active">
-          <h3 className="prod-queue__active-title">🔄 Active Production</h3>
+          <h3 className="prod-queue__active-title">Active Production</h3>
           <AnimatePresence>
             {state.productionQueue.filter(t => t.status !== 'completed').map(task => {
               const item = getItem(task.itemId);
@@ -147,7 +158,7 @@ export function ProductionQueue({ recommendations, totalTime, totalProfit }: Pro
                 >
                   <ItemImage itemId={item.id} fallback={item.src} size="md" />
                   <div className="prod-queue__info">
-                    <div className="prod-queue__name">{item.name} ×{task.quantity}</div>
+                    <div className="prod-queue__name">{item.name} x{task.quantity}</div>
                     <div className="prod-queue__progress-bar">
                       <motion.div
                         className="prod-queue__progress-fill"
@@ -158,15 +169,19 @@ export function ProductionQueue({ recommendations, totalTime, totalProfit }: Pro
                   </div>
                   <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
                     {isDone ? (
-                      <button className="btn btn--green btn--sm"
-                        onClick={() => completeTask(task.id, task.itemId, task.quantity)}>
+                      <button
+                        className="btn btn--green btn--sm"
+                        onClick={() => completeTask(task.id, task.itemId, task.quantity)}
+                      >
                         <FontAwesomeIcon icon={faCheckCircle} /> Collect
                       </button>
                     ) : (
                       <span className="prod-queue__running-badge">{Math.round(progress)}%</span>
                     )}
-                    <button className="btn btn--ghost btn--sm btn--icon"
-                      onClick={() => dispatch({ type: 'REMOVE_PRODUCTION', taskId: task.id })}>
+                    <button
+                      className="btn btn--ghost btn--sm btn--icon"
+                      onClick={() => dispatch({ type: 'REMOVE_PRODUCTION', taskId: task.id })}
+                    >
                       <FontAwesomeIcon icon={faTimes} />
                     </button>
                   </div>

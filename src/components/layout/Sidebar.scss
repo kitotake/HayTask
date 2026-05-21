@@ -13,7 +13,6 @@
   flex-shrink: 0;
   z-index: 100;
 
-  // Warm wood texture effect
   background: linear-gradient(180deg, #2C1810 0%, #1E0F08 100%);
   border-right: 2px solid rgba(245, 166, 35, 0.15);
 
@@ -24,7 +23,12 @@
     padding: 24px 20px 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 
-    &-icon { font-size: 2rem; }
+    &-icon {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 6px rgba(245, 166, 35, 0.4));
+    }
 
     &-title {
       font-family: var(--font-display);
@@ -56,12 +60,13 @@
       text-transform: uppercase;
       letter-spacing: 0.08em;
       margin-bottom: 10px;
+
+      svg { color: var(--hay-gold); font-size: 0.7rem; }
     }
 
     &-control {
       display: flex;
       align-items: center;
-      gap: 0;
       background: rgba(255, 255, 255, 0.06);
       border-radius: var(--radius-md);
       border: 1px solid rgba(245, 166, 35, 0.2);
@@ -69,13 +74,16 @@
     }
 
     &-btn {
-      flex: 1;
-      padding: 8px;
+      flex-shrink: 0;
+      width: 36px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       background: transparent;
       border: none;
       color: var(--hay-gold);
-      font-size: 1.2rem;
-      font-weight: 700;
+      font-size: 0.75rem;
       cursor: pointer;
       transition: background var(--transition-fast);
 
@@ -83,19 +91,36 @@
       &:active { background: rgba(245, 166, 35, 0.25); }
     }
 
-    &-value {
-      flex: 2;
-      text-align: center;
+    &-input {
+      flex: 1;
+      min-width: 0;
+      background: transparent;
+      border: none;
+      color: #fff;
       font-family: var(--font-display);
       font-size: 1.3rem;
-      color: #fff;
-      padding: 8px 0;
+      text-align: center;
+      padding: 6px 0;
+      outline: none;
+      width: 100%;
+
+      /* Hide native number spinner arrows */
+      -moz-appearance: textfield;
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      &:focus {
+        background: rgba(245, 166, 35, 0.08);
+      }
     }
   }
 
   &__nav {
     flex: 1;
-    padding: 12px 12px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
     gap: 2px;

@@ -1,12 +1,15 @@
 // ============================================================
-// HAYTASK - Order Card Component (with real images)
+// HAYTASK - Order Card Component
 // ============================================================
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faTimes, faShip, faTruck, faUser, faClock } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCheck, faTimes, faShip, faTruck, faUser, faClock,
+  faCoins, faStar, faBoxOpen
+} from '@fortawesome/free-solid-svg-icons';
 import type { Order } from '../../types';
-import { getItem, formatTime } from '../../data/items';
+import { getItem } from '../../data/items';
 import { useGame } from '../../store/GameStore';
 import { useCountdown } from '../../hooks';
 import { ItemImage } from '../ui/ItemImage';
@@ -15,9 +18,9 @@ import './OrderCard.scss';
 interface OrderCardProps { order: Order; delay?: number; }
 
 const TYPE_CONFIG = {
-  visitor: { icon: faUser,  label: 'Visitor',    color: 'green', emoji: '👤' },
-  truck:   { icon: faTruck, label: 'Truck Order', color: 'blue',  emoji: '🚚' },
-  boat:    { icon: faShip,  label: 'Boat Cargo',  color: 'sky',   emoji: '⛵' },
+  visitor: { icon: faUser,  label: 'Visitor',     color: 'green' },
+  truck:   { icon: faTruck, label: 'Truck Order',  color: 'blue'  },
+  boat:    { icon: faShip,  label: 'Boat Cargo',   color: 'sky'   },
 };
 
 function CountdownDisplay({ expiresAt }: { expiresAt?: number }) {
@@ -29,9 +32,9 @@ export function OrderCard({ order, delay = 0 }: OrderCardProps) {
   const { state, dispatch } = useGame();
   const config = TYPE_CONFIG[order.type];
 
-  const totalItems   = order.items.reduce((s, i) => s + i.quantity, 0);
+  const totalItems     = order.items.reduce((s, i) => s + i.quantity, 0);
   const fulfilledItems = order.items.reduce((s, i) => s + i.fulfilled, 0);
-  const progress     = totalItems > 0 ? (fulfilledItems / totalItems) * 100 : 0;
+  const progress       = totalItems > 0 ? (fulfilledItems / totalItems) * 100 : 0;
 
   const handleAccept  = () => dispatch({ type: 'UPDATE_ORDER', id: order.id, status: 'accepted' });
   const handleDecline = () => dispatch({ type: 'REMOVE_ORDER', id: order.id });
@@ -39,7 +42,7 @@ export function OrderCard({ order, delay = 0 }: OrderCardProps) {
   const handleFulfillItem = (itemId: string) => {
     const orderItem = order.items.find(i => i.itemId === itemId);
     if (!orderItem) return;
-    const inStock  = state.stock[itemId] ?? 0;
+    const inStock   = state.stock[itemId] ?? 0;
     const toFulfill = Math.min(inStock, orderItem.quantity - orderItem.fulfilled);
     if (toFulfill <= 0) return;
     dispatch({ type: 'REMOVE_STOCK', itemId, amount: toFulfill });
@@ -60,12 +63,16 @@ export function OrderCard({ order, delay = 0 }: OrderCardProps) {
       {/* Header */}
       <div className="order-card__header">
         <div className="order-card__type">
-          <span className="order-card__type-emoji">{config.emoji}</span>
+          <FontAwesomeIcon icon={config.icon} className="order-card__type-icon" />
           <span className="order-card__type-label">{config.label}</span>
         </div>
         <div className="order-card__rewards">
-          <span className="order-card__reward">🪙 {order.reward}</span>
-          <span className="order-card__xp">⭐ {order.xp} XP</span>
+          <span className="order-card__reward">
+            <FontAwesomeIcon icon={faCoins} /> {order.reward}
+          </span>
+          <span className="order-card__xp">
+            <FontAwesomeIcon icon={faStar} /> {order.xp} XP
+          </span>
         </div>
         {order.expiresAt && (
           <div className="order-card__timer">
@@ -98,10 +105,12 @@ export function OrderCard({ order, delay = 0 }: OrderCardProps) {
 
           return (
             <div key={oi.itemId} className={`order-card__item ${oi.fulfilled >= oi.quantity ? 'done' : ''}`}>
-              <ItemImage itemId={oi.itemId} fallback={item?.src ?? '❓'} size="sm" />
+              <ItemImage itemId={oi.itemId} fallback={item?.src ?? '?'} size="sm" />
               <span className="order-card__item-name">{item?.name ?? oi.itemId}</span>
               <span className="order-card__item-qty">{oi.fulfilled}/{oi.quantity}</span>
-              <span className="order-card__item-stock" title={`In stock: ${inStock}`}>📦 {inStock}</span>
+              <span className="order-card__item-stock" title={`In stock: ${inStock}`}>
+                <FontAwesomeIcon icon={faBoxOpen} /> {inStock}
+              </span>
               {needed > 0 ? (
                 <button
                   className={`order-card__fulfill-btn ${canFulfill ? 'can' : 'cant'}`}
@@ -109,10 +118,12 @@ export function OrderCard({ order, delay = 0 }: OrderCardProps) {
                   disabled={!canFulfill}
                   title={canFulfill ? 'Fulfill from stock' : `Need ${Math.max(0, needed - inStock)} more`}
                 >
-                  {canFulfill ? '✓ Fill' : `Need ${Math.max(0, needed - inStock)}`}
+                  {canFulfill ? 'Fill' : `Need ${Math.max(0, needed - inStock)}`}
                 </button>
               ) : (
-                <span className="order-card__done-badge">✓</span>
+                <span className="order-card__done-badge">
+                  <FontAwesomeIcon icon={faCheck} />
+                </span>
               )}
             </div>
           );
@@ -132,9 +143,11 @@ export function OrderCard({ order, delay = 0 }: OrderCardProps) {
       )}
       {isComplete && order.status !== 'completed' && (
         <div className="order-card__actions">
-          <button className="btn btn--primary btn--sm"
-            onClick={() => dispatch({ type: 'UPDATE_ORDER', id: order.id, status: 'completed' })}>
-            🎉 Complete Order
+          <button
+            className="btn btn--primary btn--sm"
+            onClick={() => dispatch({ type: 'UPDATE_ORDER', id: order.id, status: 'completed' })}
+          >
+            <FontAwesomeIcon icon={faCheck} /> Complete Order
           </button>
         </div>
       )}

@@ -23,6 +23,8 @@
     cursor: pointer;
     transition: all var(--transition-fast);
 
+    svg { font-size: 0.85rem; }
+
     &:hover {
       border-color: var(--hay-gold);
       color: var(--text-primary);
@@ -86,7 +88,13 @@
     padding: 80px 24px;
     color: var(--text-muted);
 
-    span { font-size: 3.5rem; display: block; margin-bottom: 16px; }
+    &-icon {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 16px;
+      opacity: 0.35;
+    }
+
     p { margin-bottom: 24px; font-size: 0.95rem; }
   }
 }

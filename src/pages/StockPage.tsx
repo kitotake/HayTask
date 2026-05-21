@@ -1,11 +1,11 @@
 // ============================================================
-// HAYTASK - Stock Management Page (with real images)
+// HAYTASK - Stock Management Page
 // ============================================================
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faMinus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faMinus, faTrash, faBoxOpen, faLayerGroup, faCoins } from '@fortawesome/free-solid-svg-icons';
 import { Header } from '../components/layout/Header';
 import { useGame } from '../store/GameStore';
 import { getUnlockedItems, getItem } from '../data/items';
@@ -28,26 +28,28 @@ export function StockPage() {
     return sum + (item?.sellPrice ?? 0) * qty;
   }, 0);
 
-  const totalItems = Object.values(state.stock).reduce((s, v) => s + v, 0);
+  const totalItems  = Object.values(state.stock).reduce((s, v) => s + v, 0);
   const uniqueTypes = Object.entries(state.stock).filter(([, v]) => v > 0).length;
 
   const setQty = (itemId: string, qty: number) =>
     dispatch({ type: 'SET_STOCK', itemId, quantity: Math.max(0, qty) });
 
+  const summaryCards = [
+    { icon: faBoxOpen,    label: 'Total Items', value: totalItems.toLocaleString(), gold: false },
+    { icon: faLayerGroup, label: 'Item Types',  value: uniqueTypes,                gold: false },
+    { icon: faCoins,      label: 'Barn Value',  value: `${totalStockValue.toLocaleString()} coins`, gold: true },
+  ];
+
   return (
     <div className="page">
-      <Header title="📦 Stock" search={search} onSearch={setSearch} />
+      <Header title="Stock" search={search} onSearch={setSearch} />
 
       <div className="page__content">
         {/* Summary */}
         <div className="stock__summary">
-          {[
-            { emoji: '📦', label: 'Total Items', value: totalItems.toLocaleString() },
-            { emoji: '🌾', label: 'Item Types', value: uniqueTypes },
-            { emoji: '🪙', label: 'Barn Value', value: `${totalStockValue.toLocaleString()} coins`, gold: true },
-          ].map(card => (
+          {summaryCards.map(card => (
             <div key={card.label} className="stock__summary-card">
-              <span className="stock__summary-emoji">{card.emoji}</span>
+              <FontAwesomeIcon icon={card.icon} className={`stock__summary-icon ${card.gold ? 'gold' : ''}`} />
               <div>
                 <p className="stock__summary-label">{card.label}</p>
                 <p className={`stock__summary-value ${card.gold ? 'gold' : ''}`}>{card.value}</p>
@@ -64,7 +66,7 @@ export function StockPage() {
                 <th>Item</th>
                 <th>Machine</th>
                 <th>Lv.</th>
-                <th>🪙 Price</th>
+                <th>Price</th>
                 <th>In Stock</th>
                 <th>Value</th>
                 <th>Adjust</th>
@@ -90,7 +92,7 @@ export function StockPage() {
                       </div>
                     </td>
                     <td className="stock__machine">{item.machine}</td>
-                    <td className="stock__level">Lv.{item.levelRequired}</td>
+                    <td className="stock__level">{item.levelRequired}</td>
                     <td className="stock__price">{item.sellPrice}</td>
                     <td>
                       <input
@@ -102,7 +104,7 @@ export function StockPage() {
                       />
                     </td>
                     <td className={`stock__value ${value > 0 ? 'positive' : ''}`}>
-                      {value > 0 ? `🪙 ${value.toLocaleString()}` : '—'}
+                      {value > 0 ? value.toLocaleString() : '—'}
                     </td>
                     <td>
                       <div className="stock__actions">
@@ -110,21 +112,29 @@ export function StockPage() {
                           className="stock__btn stock__btn--minus"
                           onClick={() => dispatch({ type: 'REMOVE_STOCK', itemId: item.id, amount: 1 })}
                           disabled={qty === 0}
-                        ><FontAwesomeIcon icon={faMinus} /></button>
+                        >
+                          <FontAwesomeIcon icon={faMinus} />
+                        </button>
                         <button
                           className="stock__btn stock__btn--plus"
                           onClick={() => dispatch({ type: 'ADD_STOCK', itemId: item.id, amount: 1 })}
-                        ><FontAwesomeIcon icon={faPlus} /></button>
+                        >
+                          <FontAwesomeIcon icon={faPlus} />
+                        </button>
                         <button
                           className="stock__btn stock__btn--add10"
                           onClick={() => dispatch({ type: 'ADD_STOCK', itemId: item.id, amount: 10 })}
-                        >+10</button>
+                        >
+                          +10
+                        </button>
                         {qty > 0 && (
                           <button
                             className="stock__btn stock__btn--clear"
                             onClick={() => setQty(item.id, 0)}
                             title="Clear"
-                          ><FontAwesomeIcon icon={faTrash} /></button>
+                          >
+                            <FontAwesomeIcon icon={faTrash} />
+                          </button>
                         )}
                       </div>
                     </td>
@@ -136,8 +146,7 @@ export function StockPage() {
 
           {filtered.length === 0 && (
             <div className="stock__empty">
-              <span>🔍</span>
-              <p>No items found for "{search}"</p>
+              <p>No items found for &ldquo;{search}&rdquo;</p>
             </div>
           )}
         </div>

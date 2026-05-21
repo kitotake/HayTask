@@ -2,11 +2,12 @@
 // HAYTASK - Sidebar Navigation
 // ============================================================
 
+import { useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faHouse, faLayerGroup, faClipboardList, faIndustry,
-  faStar, faMoon, faSun, faChartBar, faLeaf
+  faStar, faMoon, faSun, faChartBar, faLeaf, faMinus, faPlus
 } from '@fortawesome/free-solid-svg-icons';
 import { useGame } from '../../store/GameStore';
 import './Sidebar.scss';
@@ -26,22 +27,28 @@ interface SidebarProps {
 
 export function Sidebar({ activePage, onNavigate, orderCount }: SidebarProps) {
   const { state, dispatch } = useGame();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const navItems: NavItem[] = [
-    { id: 'dashboard', label: 'Dashboard', icon: faHouse },
+    { id: 'dashboard',  label: 'Dashboard',  icon: faHouse },
     { id: 'production', label: 'Production', icon: faIndustry },
-    { id: 'orders', label: 'Orders', icon: faClipboardList, badge: orderCount },
-    { id: 'stock', label: 'Stock', icon: faLayerGroup },
-    { id: 'items', label: 'All Items', icon: faLeaf },
-    { id: 'favorites', label: 'Favorites', icon: faStar },
-    { id: 'stats', label: 'Stats', icon: faChartBar },
+    { id: 'orders',     label: 'Orders',     icon: faClipboardList, badge: orderCount },
+    { id: 'stock',      label: 'Stock',      icon: faLayerGroup },
+    { id: 'items',      label: 'All Items',  icon: faLeaf },
+    { id: 'favorites',  label: 'Favorites',  icon: faStar },
+    { id: 'stats',      label: 'Stats',      icon: faChartBar },
   ];
+
+  const setLevel = (val: number) => {
+    const clamped = Math.max(1, Math.min(200, val));
+    dispatch({ type: 'SET_LEVEL', level: clamped });
+  };
 
   return (
     <aside className="sidebar">
       {/* Logo */}
       <div className="sidebar__logo">
-        <span className="sidebar__logo-icon">🌾</span>
+        <img src="/assets/seed/HayDay_Wheat.png" alt="" className="sidebar__logo-icon" />
         <div>
           <h1 className="sidebar__logo-title">HayTask</h1>
           <p className="sidebar__logo-sub">Farm Optimizer</p>
@@ -51,18 +58,42 @@ export function Sidebar({ activePage, onNavigate, orderCount }: SidebarProps) {
       {/* Level selector */}
       <div className="sidebar__level">
         <label className="sidebar__level-label">
-          <span>🏅</span> Player Level
+          <FontAwesomeIcon icon={faStar} /> Player Level
         </label>
         <div className="sidebar__level-control">
           <button
             className="sidebar__level-btn"
-            onClick={() => dispatch({ type: 'SET_LEVEL', level: Math.max(1, state.playerLevel - 1) })}
-          >−</button>
-          <span className="sidebar__level-value">{state.playerLevel}</span>
+            onClick={() => setLevel(state.playerLevel - 1)}
+            aria-label="Decrease level"
+          >
+            <FontAwesomeIcon icon={faMinus} />
+          </button>
+
+          <input
+            ref={inputRef}
+            type="number"
+            className="sidebar__level-input"
+            value={state.playerLevel}
+            min={1}
+            max={200}
+            onChange={e => {
+              const v = parseInt(e.target.value);
+              if (!isNaN(v)) setLevel(v);
+            }}
+            onBlur={e => {
+              const v = parseInt(e.target.value);
+              if (isNaN(v) || v < 1) setLevel(1);
+            }}
+            aria-label="Player level"
+          />
+
           <button
             className="sidebar__level-btn"
-            onClick={() => dispatch({ type: 'SET_LEVEL', level: Math.min(120, state.playerLevel + 1) })}
-          >+</button>
+            onClick={() => setLevel(state.playerLevel + 1)}
+            aria-label="Increase level"
+          >
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
         </div>
       </div>
 

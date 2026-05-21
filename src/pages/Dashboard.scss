@@ -75,7 +75,13 @@
     border-radius: var(--radius-xl);
     color: var(--text-muted);
 
-    span { font-size: 3rem; display: block; margin-bottom: 16px; }
+    &-icon {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 16px;
+      opacity: 0.4;
+    }
+
     p { margin-bottom: 20px; font-size: 0.9rem; }
   }
 

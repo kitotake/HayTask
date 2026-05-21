@@ -98,6 +98,13 @@
     padding: 60px 24px;
     color: var(--text-muted);
 
-    span { font-size: 3rem; display: block; margin-bottom: 16px; }
+    &-icon {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 16px;
+      opacity: 0.3;
+    }
+
+    p { font-size: 0.92rem; }
   }
 }

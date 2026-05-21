@@ -5,7 +5,7 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTruck, faUser, faShip, faList, faInbox } from '@fortawesome/free-solid-svg-icons';
 import { Header } from '../components/layout/Header';
 import { OrderCard } from '../components/orders/OrderCard';
 import { AddOrderModal } from '../components/modals/AddOrderModal';
@@ -13,11 +13,11 @@ import { useGame } from '../store/GameStore';
 import type { OrderType } from '../types';
 import './Orders.scss';
 
-const TABS: { id: OrderType | 'all'; label: string; emoji: string }[] = [
-  { id: 'all',     label: 'All',     emoji: '📋' },
-  { id: 'truck',   label: 'Truck',   emoji: '🚚' },
-  { id: 'visitor', label: 'Visitor', emoji: '👤' },
-  { id: 'boat',    label: 'Boat',    emoji: '⛵' },
+const TABS: { id: OrderType | 'all'; label: string; icon: typeof faList }[] = [
+  { id: 'all',     label: 'All',     icon: faList  },
+  { id: 'truck',   label: 'Truck',   icon: faTruck },
+  { id: 'visitor', label: 'Visitor', icon: faUser  },
+  { id: 'boat',    label: 'Boat',    icon: faShip  },
 ];
 
 export function OrdersPage() {
@@ -27,19 +27,18 @@ export function OrdersPage() {
   const [showCompleted, setShowCompleted] = useState(false);
 
   const orders = state.orders.filter(o => {
-    const typeMatch = activeTab === 'all' || o.type === activeTab;
+    const typeMatch   = activeTab === 'all' || o.type === activeTab;
     const statusMatch = showCompleted
       ? true
       : ['pending', 'accepted', 'in_progress'].includes(o.status);
     return typeMatch && statusMatch;
   });
 
-  const pendingCount = state.orders.filter(o => o.status === 'pending').length;
   const completedCount = state.orders.filter(o => o.status === 'completed').length;
 
   return (
     <div className="page">
-      <Header title="📋 Orders" />
+      <Header title="Orders" />
 
       <div className="page__content">
         {/* Tabs */}
@@ -50,12 +49,12 @@ export function OrdersPage() {
               className={`orders__tab ${activeTab === tab.id ? 'active' : ''}`}
               onClick={() => setActiveTab(tab.id)}
             >
-              <span>{tab.emoji}</span>
+              <FontAwesomeIcon icon={tab.icon} />
               <span>{tab.label}</span>
               <span className="orders__tab-count">
                 {state.orders.filter(o =>
                   (tab.id === 'all' || o.type === tab.id) &&
-                  ['pending','accepted','in_progress'].includes(o.status)
+                  ['pending', 'accepted', 'in_progress'].includes(o.status)
                 ).length}
               </span>
             </button>
@@ -87,7 +86,7 @@ export function OrdersPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            <span>📭</span>
+            <FontAwesomeIcon icon={faInbox} className="orders__empty-icon" />
             <p>No orders here. Create a new one!</p>
             <button className="btn btn--primary" onClick={() => setShowModal(true)}>
               <FontAwesomeIcon icon={faPlus} /> Add Order

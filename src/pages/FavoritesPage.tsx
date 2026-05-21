@@ -3,6 +3,8 @@
 // ============================================================
 
 import { motion } from 'framer-motion';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { Header } from '../components/layout/Header';
 import { ItemCard } from '../components/ui/ItemCard';
 import { useGame } from '../store/GameStore';
@@ -17,7 +19,7 @@ export function FavoritesPage() {
 
   return (
     <div className="page">
-      <Header title="⭐ Favorites" />
+      <Header title="Favorites" />
       <div className="page__content">
         {favItems.length === 0 ? (
           <motion.div
@@ -25,9 +27,9 @@ export function FavoritesPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <span>⭐</span>
+            <FontAwesomeIcon icon={faStar} className="favs__empty-icon" />
             <h2>No favorites yet</h2>
-            <p>Tap the star on any item to add it to your favorites.</p>
+            <p>Click the star on any item to add it to your favorites.</p>
           </motion.div>
         ) : (
           <>

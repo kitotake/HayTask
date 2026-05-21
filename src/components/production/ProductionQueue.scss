@@ -30,12 +30,15 @@
     }
 
     &-value {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
       font-family: var(--font-display);
       font-size: 1.3rem;
       color: var(--text-primary);
 
-      &.gold { color: var(--hay-amber); }
+      &.gold { color: var(--hay-amber); svg { font-size: 1rem; } }
     }
   }
 
@@ -55,7 +58,6 @@
     border: 1.5px solid var(--border);
     border-radius: var(--radius-md);
     transition: all var(--transition-fast);
-    cursor: grab;
 
     &:hover {
       border-color: rgba(245, 166, 35, 0.3);
@@ -83,12 +85,6 @@
     flex-shrink: 0;
   }
 
-  &__emoji {
-    font-size: 1.6rem;
-    line-height: 1;
-    flex-shrink: 0;
-  }
-
   &__info {
     flex: 1;
     min-width: 0;
@@ -104,11 +100,19 @@
   &__meta {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px;
     font-size: 0.75rem;
     color: var(--text-muted);
     font-weight: 600;
     margin-bottom: 3px;
+
+    span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      svg { font-size: 0.65rem; opacity: 0.7; }
+    }
   }
 
   &__reason {
@@ -122,9 +126,14 @@
     flex-shrink: 0;
 
     &-total {
+      display: flex;
+      align-items: center;
+      gap: 5px;
       font-weight: 700;
       font-size: 0.88rem;
       color: var(--hay-amber);
+
+      svg { font-size: 0.75rem; }
     }
   }
 
@@ -150,7 +159,13 @@
     padding: 40px 20px;
     color: var(--text-muted);
 
-    span { font-size: 2.5rem; display: block; margin-bottom: 12px; }
+    &-icon {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 12px;
+      opacity: 0.35;
+    }
+
     p { font-size: 0.9rem; }
   }
 

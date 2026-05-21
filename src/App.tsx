@@ -5,7 +5,7 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { GameProvider } from './store/GameStore';
-import { Sidebar } from './components/layout/Sidebar';
+import { Sidebar } from './components/layout/Sidebar.tsx';
 import { Dashboard } from './pages/Dashboard';
 import { OrdersPage } from './pages/Orders';
 import { ItemsPage } from './pages/ItemsPage';

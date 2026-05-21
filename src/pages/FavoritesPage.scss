@@ -6,8 +6,21 @@
     padding: 80px 24px;
     color: var(--text-muted);
 
-    span { font-size: 4rem; display: block; margin-bottom: 16px; }
-    h2 { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 8px; color: var(--text-primary); }
+    &-icon {
+      font-size: 3.5rem;
+      display: block;
+      margin-bottom: 16px;
+      opacity: 0.3;
+      color: var(--hay-gold);
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+
     p { font-size: 0.92rem; }
   }
 

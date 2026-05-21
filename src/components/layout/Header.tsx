@@ -3,7 +3,7 @@
 // ============================================================
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faBell, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBell, faSearch, faMedal } from '@fortawesome/free-solid-svg-icons';
 import { useGame } from '../../store/GameStore';
 import './Header.scss';
 
@@ -23,7 +23,7 @@ export function Header({ title, search, onSearch, onMenuToggle }: HeaderProps) {
   return (
     <header className="header">
       <div className="header__left">
-        <button className="header__menu-btn" onClick={onMenuToggle}>
+        <button className="header__menu-btn" onClick={onMenuToggle} aria-label="Menu">
           <FontAwesomeIcon icon={faBars} />
         </button>
         <h2 className="header__title">{title}</h2>
@@ -43,11 +43,11 @@ export function Header({ title, search, onSearch, onMenuToggle }: HeaderProps) {
         )}
 
         <div className="header__level-chip">
-          <span>🏅</span>
+          <FontAwesomeIcon icon={faMedal} />
           <span>Level {state.playerLevel}</span>
         </div>
 
-        <div className="header__notif">
+        <div className="header__notif" role="button" aria-label="Notifications">
           <FontAwesomeIcon icon={faBell} />
           {activeOrders > 0 && <span className="header__notif-dot">{activeOrders}</span>}
         </div>
