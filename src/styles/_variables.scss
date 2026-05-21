@@ -1,0 +1,77 @@
+// ============================================================
+// HAYTASK - Design System Variables
+// Inspired by Hay Day: warm, earthy, playful farm aesthetic
+// ============================================================
+
+// ─── Color Palette ───────────────────────────────────────────
+$hay-gold: #F5A623;
+$hay-amber: #E8921A;
+$hay-green: #5CB85C;
+$hay-green-dark: #3D8B3D;
+$hay-sky: #4ECDC4;
+$hay-blue: #2196F3;
+$hay-red: #E74C3C;
+$hay-purple: #9B59B6;
+$hay-brown: #8B6914;
+$hay-cream: #FFF8EC;
+$hay-wheat: #F2E0A0;
+$hay-soil: #8B4513;
+
+// Light mode
+$bg-primary: #FFF8EC;
+$bg-secondary: #FFF3D6;
+$bg-card: #FFFFFF;
+$bg-sidebar: #2C1810;
+$text-primary: #2C1810;
+$text-secondary: #7A5C3A;
+$text-muted: #B8956A;
+$border: #E8D5A3;
+$shadow: rgba(140, 80, 20, 0.12);
+
+// Dark mode
+$bg-primary-dark: #1A1008;
+$bg-secondary-dark: #241610;
+$bg-card-dark: #2C1A0E;
+$bg-sidebar-dark: #150B05;
+$text-primary-dark: #F5E6C8;
+$text-secondary-dark: #C4A882;
+$text-muted-dark: #8B6942;
+$border-dark: #3D2410;
+$shadow-dark: rgba(0, 0, 0, 0.4);
+
+// ─── Typography ──────────────────────────────────────────────
+$font-display: 'Lilita One', 'Fredoka One', system-ui, sans-serif;
+$font-body: 'Nunito', 'Segoe UI', system-ui, sans-serif;
+$font-mono: 'Courier New', monospace;
+
+// ─── Spacing ─────────────────────────────────────────────────
+$space-xs: 4px;
+$space-sm: 8px;
+$space-md: 16px;
+$space-lg: 24px;
+$space-xl: 32px;
+$space-2xl: 48px;
+
+// ─── Radius ──────────────────────────────────────────────────
+$radius-sm: 8px;
+$radius-md: 16px;
+$radius-lg: 24px;
+$radius-xl: 32px;
+$radius-full: 9999px;
+
+// ─── Transitions ─────────────────────────────────────────────
+$transition-fast: 0.15s ease;
+$transition-normal: 0.25s ease;
+$transition-slow: 0.4s ease;
+
+// ─── Shadows ─────────────────────────────────────────────────
+$shadow-sm: 0 2px 8px $shadow;
+$shadow-md: 0 4px 20px $shadow;
+$shadow-lg: 0 8px 40px $shadow;
+$shadow-card: 0 2px 12px rgba(140, 80, 20, 0.08), 0 1px 3px rgba(140, 80, 20, 0.06);
+
+// ─── Breakpoints ─────────────────────────────────────────────
+$bp-sm: 640px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;

@@ -1,0 +1,200 @@
+@use '../../styles/variables' as *;
+
+.order-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-card);
+
+  &:hover { box-shadow: var(--shadow-md); }
+
+  &--complete {
+    border-color: rgba(92, 184, 92, 0.4);
+    background: rgba(92, 184, 92, 0.02);
+  }
+
+  // Left accent border by type
+  &--green  { border-left: 4px solid var(--hay-green); }
+  &--blue   { border-left: 4px solid var(--hay-blue); }
+  &--sky    { border-left: 4px solid var(--hay-sky); }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  &__type {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+
+    &-emoji { font-size: 1.2rem; }
+
+    &-label {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--text-primary);
+    }
+  }
+
+  &__rewards {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  &__reward, &__xp {
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+  }
+
+  &__reward {
+    background: rgba(245, 166, 35, 0.12);
+    color: var(--hay-amber);
+  }
+
+  &__xp {
+    background: rgba(78, 205, 196, 0.12);
+    color: #2a9d8f;
+  }
+
+  &__timer {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+    color: var(--hay-red);
+    font-weight: 600;
+    background: rgba(231, 76, 60, 0.08);
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+  }
+
+  &__progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+
+    &-bar {
+      flex: 1;
+      height: 8px;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    &-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--hay-green), #7bc67e);
+      border-radius: var(--radius-full);
+    }
+
+    &-text {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    transition: all var(--transition-fast);
+
+    &.done {
+      opacity: 0.6;
+      background: rgba(92, 184, 92, 0.06);
+      border-color: rgba(92, 184, 92, 0.2);
+    }
+
+    &-emoji { font-size: 1.1rem; flex-shrink: 0; }
+
+    &-name {
+      flex: 1;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &-qty {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+
+    &-stock {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+  }
+
+  &__fulfill-btn {
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    border: 1.5px solid;
+    font-size: 0.72rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+
+    &.can {
+      border-color: var(--hay-green);
+      color: var(--hay-green);
+      background: rgba(92, 184, 92, 0.08);
+
+      &:hover { background: var(--hay-green); color: #fff; }
+    }
+
+    &.cant {
+      border-color: var(--border);
+      color: var(--text-muted);
+      background: transparent;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+
+  &__done-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--hay-green);
+    background: rgba(92, 184, 92, 0.12);
+    padding: 3px 8px;
+    border-radius: var(--radius-full);
+  }
+
+  &__actions {
+    display: flex;
+    gap: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+}

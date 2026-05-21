@@ -1,0 +1,209 @@
+@use '../../styles/variables' as *;
+
+.sidebar {
+  width: var(--sidebar-width);
+  min-height: 100vh;
+  background: var(--bg-sidebar);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+  z-index: 100;
+
+  // Warm wood texture effect
+  background: linear-gradient(180deg, #2C1810 0%, #1E0F08 100%);
+  border-right: 2px solid rgba(245, 166, 35, 0.15);
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 24px 20px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+    &-icon { font-size: 2rem; }
+
+    &-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--hay-gold);
+      line-height: 1;
+    }
+
+    &-sub {
+      font-size: 0.72rem;
+      color: rgba(245, 166, 35, 0.6);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+  }
+
+  &__level {
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+    &-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    &-control {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(245, 166, 35, 0.2);
+      overflow: hidden;
+    }
+
+    &-btn {
+      flex: 1;
+      padding: 8px;
+      background: transparent;
+      border: none;
+      color: var(--hay-gold);
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background var(--transition-fast);
+
+      &:hover { background: rgba(245, 166, 35, 0.15); }
+      &:active { background: rgba(245, 166, 35, 0.25); }
+    }
+
+    &-value {
+      flex: 2;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: #fff;
+      padding: 8px 0;
+    }
+  }
+
+  &__nav {
+    flex: 1;
+    padding: 12px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    &-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 11px 16px;
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-md);
+      color: rgba(255, 255, 255, 0.55);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: color var(--transition-fast), background var(--transition-fast);
+      text-align: left;
+      overflow: hidden;
+
+      &:hover {
+        color: rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      &.active {
+        color: var(--hay-gold);
+        background: rgba(245, 166, 35, 0.12);
+      }
+    }
+
+    &-icon {
+      width: 18px;
+      flex-shrink: 0;
+      font-size: 0.95rem;
+    }
+
+    &-label { flex: 1; }
+
+    &-badge {
+      background: var(--hay-red);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: var(--radius-full);
+      min-width: 20px;
+      text-align: center;
+    }
+
+    &-indicator {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 60%;
+      background: var(--hay-gold);
+      border-radius: 0 var(--radius-full) var(--radius-full) 0;
+    }
+  }
+
+  &__footer {
+    padding: 16px 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__theme-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 16px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    color: rgba(255, 255, 255, 0.6);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+  }
+
+  &__version {
+    text-align: center;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.2);
+  }
+
+  // ─── Responsive ─────────────────────────────────────────
+  @media (max-width: #{$bp-lg}) {
+    position: fixed;
+    left: -100%;
+    transition: left var(--transition-normal);
+    box-shadow: var(--shadow-lg);
+
+    &.open { left: 0; }
+  }
+}

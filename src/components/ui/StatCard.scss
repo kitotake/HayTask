@@ -1,0 +1,88 @@
+@use '../../styles/variables' as *;
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition: all var(--transition-fast);
+  cursor: default;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  &__icon {
+    font-size: 2.4rem;
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  &__value {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  &__sub {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  // Color variants
+  &--gold {
+    border-color: rgba(245, 166, 35, 0.2);
+    .stat-card__icon { background: rgba(245, 166, 35, 0.12); }
+    .stat-card__value { color: var(--hay-amber); }
+  }
+
+  &--green {
+    border-color: rgba(92, 184, 92, 0.2);
+    .stat-card__icon { background: rgba(92, 184, 92, 0.12); }
+    .stat-card__value { color: var(--hay-green); }
+  }
+
+  &--blue {
+    border-color: rgba(33, 150, 243, 0.2);
+    .stat-card__icon { background: rgba(33, 150, 243, 0.12); }
+    .stat-card__value { color: var(--hay-blue); }
+  }
+
+  &--red {
+    border-color: rgba(231, 76, 60, 0.2);
+    .stat-card__icon { background: rgba(231, 76, 60, 0.12); }
+    .stat-card__value { color: var(--hay-red); }
+  }
+
+  &--sky {
+    border-color: rgba(78, 205, 196, 0.2);
+    .stat-card__icon { background: rgba(78, 205, 196, 0.12); }
+    .stat-card__value { color: #2a9d8f; }
+  }
+}

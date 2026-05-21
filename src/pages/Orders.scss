@@ -1,0 +1,92 @@
+@use '../styles/variables' as *;
+
+.orders {
+  &__tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  &__tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--bg-card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-full);
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+
+    &:hover {
+      border-color: var(--hay-gold);
+      color: var(--text-primary);
+    }
+
+    &.active {
+      background: var(--hay-gold);
+      border-color: var(--hay-gold);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(245, 166, 35, 0.35);
+    }
+
+    &-count {
+      background: rgba(255,255,255,0.25);
+      padding: 1px 7px;
+      border-radius: var(--radius-full);
+      font-size: 0.72rem;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  &__toggle {
+    &-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+
+      input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--hay-gold);
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 16px;
+
+    @media (max-width: #{$bp-sm}) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__empty {
+    text-align: center;
+    padding: 80px 24px;
+    color: var(--text-muted);
+
+    span { font-size: 3.5rem; display: block; margin-bottom: 16px; }
+    p { margin-bottom: 24px; font-size: 0.95rem; }
+  }
+}

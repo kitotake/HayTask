@@ -1,0 +1,190 @@
+@use '../styles/variables' as *;
+
+.stock {
+  &__summary {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+
+    &-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      flex: 1;
+      min-width: 200px;
+    }
+
+    &-emoji { font-size: 2rem; }
+
+    &-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    &-value {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--text-primary);
+
+      &.gold { color: var(--hay-amber); }
+    }
+  }
+
+  &__table-wrap {
+    background: var(--bg-card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    overflow-x: auto;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+
+    thead {
+      background: var(--bg-secondary);
+      border-bottom: 1.5px solid var(--border);
+
+      th {
+        padding: 12px 16px;
+        text-align: left;
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--text-muted);
+        white-space: nowrap;
+      }
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background var(--transition-fast);
+
+      &:last-child { border-bottom: none; }
+
+      &:hover { background: var(--bg-secondary); }
+
+      &.has-stock {
+        background: rgba(245, 166, 35, 0.03);
+      }
+    }
+
+    td {
+      padding: 10px 16px;
+      color: var(--text-primary);
+      vertical-align: middle;
+    }
+  }
+
+  &__item-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+  }
+
+  &__item-emoji { font-size: 1.3rem; }
+
+  &__machine, &__level {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+
+  &__price {
+    font-weight: 700;
+    color: var(--hay-amber);
+    white-space: nowrap;
+  }
+
+  &__value {
+    font-weight: 600;
+    color: var(--text-muted);
+    white-space: nowrap;
+
+    &.positive { color: var(--hay-green); }
+  }
+
+  &__qty-input {
+    width: 72px;
+    padding: 6px 8px;
+    background: var(--bg-secondary);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    text-align: center;
+    transition: border-color var(--transition-fast);
+
+    &:focus {
+      outline: none;
+      border-color: var(--hay-gold);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  &__btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.72rem;
+    font-weight: 700;
+    font-family: var(--font-body);
+    transition: all var(--transition-fast);
+
+    &:hover { border-color: var(--text-secondary); color: var(--text-primary); }
+    &:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    &--plus {
+      color: var(--hay-green);
+      border-color: rgba(92, 184, 92, 0.3);
+      &:hover { background: var(--hay-green); color: #fff; border-color: var(--hay-green); }
+    }
+
+    &--minus {
+      color: var(--hay-red);
+      border-color: rgba(231, 76, 60, 0.3);
+      &:not(:disabled):hover { background: var(--hay-red); color: #fff; border-color: var(--hay-red); }
+    }
+
+    &--add10 {
+      width: auto;
+      padding: 0 8px;
+      color: var(--hay-blue);
+      border-color: rgba(33, 150, 243, 0.3);
+      &:hover { background: var(--hay-blue); color: #fff; border-color: var(--hay-blue); }
+    }
+
+    &--clear {
+      color: var(--text-muted);
+      &:hover { background: var(--hay-red); color: #fff; border-color: var(--hay-red); }
+    }
+  }
+}

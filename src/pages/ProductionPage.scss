@@ -1,0 +1,64 @@
+@use '../styles/variables' as *;
+
+.prod-page {
+  &__hero {
+    background: linear-gradient(135deg, rgba(245, 166, 35, 0.1), rgba(92, 184, 92, 0.08));
+    border: 1.5px solid rgba(245, 166, 35, 0.2);
+    border-radius: var(--radius-xl);
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    &-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      span:first-child { font-size: 2rem; }
+    }
+
+    &-label {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    &-sub {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+
+      .gold { color: var(--hay-amber); font-weight: 700; }
+    }
+  }
+
+  &__machines {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__machine-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: var(--bg-card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  &__machine-count {
+    background: var(--hay-gold);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 1px 7px;
+    border-radius: var(--radius-full);
+  }
+}
