@@ -5,7 +5,7 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { GameProvider } from './store/GameStore';
-import { Sidebar } from './components/layout/Sidebar.tsx';
+import { Sidebar } from './components/layout/Sidebar';
 import { Dashboard } from './pages/Dashboard';
 import { OrdersPage } from './pages/Orders';
 import { ItemsPage } from './pages/ItemsPage';
@@ -20,9 +20,9 @@ import './App.scss';
 type Page = 'dashboard' | 'production' | 'orders' | 'stock' | 'items' | 'favorites' | 'stats';
 
 function AppInner() {
-  const [page, setPage] = useState<Page>('dashboard');
+  const [page, setPage]           = useState<Page>('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { total: orderCount } = useOrderStats();
+  const { total: orderCount }     = useOrderStats();
 
   useDarkMode();
 
@@ -41,7 +41,6 @@ function AppInner() {
 
   return (
     <div className="app">
-      {/* Mobile overlay */}
       {sidebarOpen && (
         <div
           className="app__overlay"

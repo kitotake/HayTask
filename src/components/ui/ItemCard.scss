@@ -24,7 +24,6 @@
     padding: 12px;
     gap: 6px;
 
-    .item-card__emoji { font-size: 1.8rem; }
     .item-card__name { font-size: 0.82rem; }
   }
 
@@ -40,14 +39,21 @@
     transition: color var(--transition-fast), transform var(--transition-fast);
     padding: 2px;
 
-    &:hover { color: var(--hay-gold); transform: scale(1.2); }
+    &:hover  { color: var(--hay-gold); transform: scale(1.2); }
     &.active { color: var(--hay-gold); }
   }
 
-  &__emoji {
-    font-size: 2.4rem;
-    line-height: 1;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+  &__level {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    background: var(--bg-secondary);
+    padding: 2px 6px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border);
   }
 
   &__info {
@@ -63,9 +69,15 @@
   }
 
   &__machine {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
     font-size: 0.72rem;
     color: var(--text-muted);
     margin-bottom: 6px;
+
+    svg { font-size: 0.65rem; }
   }
 
   &__meta {
@@ -76,23 +88,32 @@
     margin-bottom: 6px;
 
     span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
       font-size: 0.72rem;
       font-weight: 600;
       background: var(--bg-secondary);
       padding: 2px 8px;
       border-radius: var(--radius-full);
       color: var(--text-secondary);
+
+      svg { font-size: 0.62rem; opacity: 0.7; }
     }
   }
 
   &__profit {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     font-size: 0.75rem;
     font-weight: 700;
     color: var(--hay-amber);
     background: rgba(245, 166, 35, 0.1);
     padding: 3px 10px;
     border-radius: var(--radius-full);
-    display: inline-block;
+
+    svg { font-size: 0.65rem; }
   }
 
   &__stock {
@@ -115,10 +136,11 @@
       border: none;
       color: var(--text-secondary);
       cursor: pointer;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       transition: background var(--transition-fast);
 
-      &:hover { background: var(--border); }
+      &:hover    { background: var(--border); }
+      &:disabled { opacity: 0.35; cursor: not-allowed; }
 
       &--add { color: var(--hay-green); }
     }
@@ -131,18 +153,5 @@
       min-width: 28px;
       text-align: center;
     }
-  }
-
-  &__level {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    font-size: 0.65rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    background: var(--bg-secondary);
-    padding: 2px 6px;
-    border-radius: var(--radius-full);
-    border: 1px solid var(--border);
   }
 }

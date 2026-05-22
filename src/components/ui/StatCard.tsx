@@ -3,12 +3,10 @@
 // ============================================================
 
 import { motion } from 'framer-motion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import './StatCard.scss';
 
 interface StatCardProps {
-  icon: IconDefinition;
+  emoji: string;
   label: string;
   value: string | number;
   sub?: string;
@@ -16,7 +14,7 @@ interface StatCardProps {
   delay?: number;
 }
 
-export function StatCard({ icon, label, value, sub, color = 'gold', delay = 0 }: StatCardProps) {
+export function StatCard({ emoji, label, value, sub, color = 'gold', delay = 0 }: StatCardProps) {
   return (
     <motion.div
       className={`stat-card stat-card--${color}`}
@@ -24,9 +22,7 @@ export function StatCard({ icon, label, value, sub, color = 'gold', delay = 0 }:
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.35, ease: 'easeOut' }}
     >
-      <div className="stat-card__icon">
-        <FontAwesomeIcon icon={icon} />
-      </div>
+      <div className="stat-card__icon" aria-hidden="true">{emoji}</div>
       <div className="stat-card__body">
         <p className="stat-card__label">{label}</p>
         <p className="stat-card__value">{value}</p>
