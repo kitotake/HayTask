@@ -14,6 +14,11 @@
 /** Map: itemId → asset path (relative to public/) */
 export const IMAGE_MAP: Record<string, string> = {
 
+  // in game assets (for testing)
+  
+  HayDay_Pieces:   '/assets/HayDay_Pieces',
+  HayDay_XP:    '/assets/HayDay_XP.png',
+
   // ─── Seeds / Crops ──────────────────────────────────────
   wheat:        '/assets/seed/HayDay_Wheat.png',
   corn:         '/assets/seed/HayDay_Corn.png',

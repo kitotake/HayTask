@@ -5,7 +5,15 @@
 export type Category =
   | 'crop' | 'tree' | 'animal' | 'bakery' | 'dairy' | 'feed'
   | 'sugar' | 'popcorn' | 'bbq' | 'loom' | 'jam' | 'juice'
-  | 'pie' | 'cake' | 'ice_cream' | 'fishing' | 'candy';
+  | 'pie' | 'cake' | 'ice_cream' | 'fishing' | 'candy' | 'coffee' | 'soup' | 'sushi' | 'salad' | 'sandwich'
+  | 'smoothie' | 'pasta' | 'sauce' | 'jewelry' | 'hot_dog' | 'taco' | 'tea' | 'flower'
+  | 'candle' | 'fondue' | 'donut' | 'fudge' | 'hatter' | 'bath' | 'porridge'
+  | 'milkshake' | 'waffle' | 'cupcake' | 'wok' | 'omelet' | 'stew'
+  | 'yogurt' | 'essential_oil' | 'perfume' | 'honey' | 'deep_fry'
+  | 'mine' | 'smelter' | 'net_maker' | 'lure_workbench' | 'duck_salon'
+  | 'hat_maker' | 'pottery_studio' | 'preservation_station' | 'dev'
+  
+  ;
 
 export type Machine =
   | 'Field' | 'Tree' | 'Animal' | 'Bakery' | 'Dairy' | 'Feed Mill'

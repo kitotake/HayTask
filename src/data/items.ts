@@ -5,12 +5,19 @@
 // ============================================================
 
 import type { Item, Machine, Category } from '../types';
+import { IMAGE_MAP } from './imageMap';
 
 export const ITEMS: Item[] = [
 
   // ══════════════════════════════════════════════════════════
   // CROPS (Field)
   // ══════════════════════════════════════════════════════════
+
+  { id:'HayDay_Pieces',       name:'Pièces en Or',        src:'🪙', category:'dev',  levelRequired:0,  productionTime:0,   sellPrice:0,   xp:0 },
+  { id:'HayDay_XP',       name:'XP',        src:'𝙓𝙋', category:'dev',  levelRequired:0,  productionTime:0,   sellPrice:0,   xp:0 },
+  
+
+
   { id:'wheat',       name:'Wheat',        src:'🌾', category:'crop', machine:'Field', levelRequired:1,  productionTime:120,   sellPrice:3,   xp:1,  ingredients:[] },
   { id:'corn',        name:'Corn',         src:'🌽', category:'crop', machine:'Field', levelRequired:2,  productionTime:300,   sellPrice:7,   xp:1,  ingredients:[] },
   { id:'carrot',      name:'Carrot',       src:'🥕', category:'crop', machine:'Field', levelRequired:9,  productionTime:600,   sellPrice:7,   xp:2,  ingredients:[] },
