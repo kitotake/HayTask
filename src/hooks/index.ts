@@ -79,9 +79,10 @@ export function useToasts() {
 
 /**
  * Stock quick-editor
+ * FIX: removed unused 'state' destructure — only getStock and dispatch needed
  */
 export function useStock(itemId: string) {
-  const { state, dispatch, getStock } = useGame();
+  const { dispatch, getStock } = useGame();
   const qty = getStock(itemId);
 
   const add = useCallback((amount = 1) => {

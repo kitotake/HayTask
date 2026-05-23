@@ -5,18 +5,19 @@
 // ============================================================
 
 import type { Item, Machine, Category } from '../types';
-import { IMAGE_MAP } from './imageMap';
 
 export const ITEMS: Item[] = [
 
   // ══════════════════════════════════════════════════════════
-  // CROPS (Field)
+  // DEV ITEMS (placeholders, no real production)
   // ══════════════════════════════════════════════════════════
 
-  { id:'HayDay_Pieces',       name:'Pièces en Or',        src:'🪙', category:'dev',  levelRequired:0,  productionTime:0,   sellPrice:0,   xp:0 },
-  { id:'HayDay_XP',       name:'XP',        src:'𝙓𝙋', category:'dev',  levelRequired:0,  productionTime:0,   sellPrice:0,   xp:0 },
-  
+  { id:'HayDay_Pieces', name:'Pièces en Or', src:'🪙', category:'dev', machine:'Dev', levelRequired:0, productionTime:0, sellPrice:0, xp:0, ingredients:[] },
+  { id:'HayDay_XP',     name:'XP',           src:'𝙓𝙋', category:'dev', machine:'Dev', levelRequired:0, productionTime:0, sellPrice:0, xp:0, ingredients:[] },
 
+  // ══════════════════════════════════════════════════════════
+  // CROPS (Field)
+  // ══════════════════════════════════════════════════════════
 
   { id:'wheat',       name:'Wheat',        src:'🌾', category:'crop', machine:'Field', levelRequired:1,  productionTime:120,   sellPrice:3,   xp:1,  ingredients:[] },
   { id:'corn',        name:'Corn',         src:'🌽', category:'crop', machine:'Field', levelRequired:2,  productionTime:300,   sellPrice:7,   xp:1,  ingredients:[] },
@@ -92,7 +93,7 @@ export const ITEMS: Item[] = [
   { id:'goat_feed',   name:'Goat Feed',    src:'🐐',category:'feed',machine:'Feed Mill',levelRequired:32,productionTime:2400, sellPrice:14, xp:3, ingredients:[{itemId:'corn',quantity:2},{itemId:'soybean',quantity:2}] },
 
   // ══════════════════════════════════════════════════════════
-  // BAKERY — Boulangerie (Niveau 2)
+  // BAKERY
   // ══════════════════════════════════════════════════════════
   { id:'bread',             name:'Bread',               src:'🍞', category:'bakery', machine:'Bakery', levelRequired:2,  productionTime:240,   sellPrice:21,  xp:3,  ingredients:[{itemId:'wheat',quantity:3}] },
   { id:'corn_bread',        name:'Corn Bread',          src:'🌽', category:'bakery', machine:'Bakery', levelRequired:7,  productionTime:1500,  sellPrice:72,  xp:8,  ingredients:[{itemId:'corn',quantity:3},{itemId:'egg',quantity:1}] },
@@ -110,7 +111,7 @@ export const ITEMS: Item[] = [
   { id:'pineapple_coconut_bars',name:'Pineapple-Coconut Bars', src:'🍍',category:'bakery',machine:'Bakery',levelRequired:120,productionTime:2040,sellPrice:284,xp:34,ingredients:[{itemId:'pineapple',quantity:2},{itemId:'coconut',quantity:1}] },
 
   // ══════════════════════════════════════════════════════════
-  // DAIRY — Laitier (Niveau 6)
+  // DAIRY
   // ══════════════════════════════════════════════════════════
   { id:'cream',      name:'Cream',       src:'🫙', category:'dairy', machine:'Dairy', levelRequired:6,  productionTime:1020,  sellPrice:50,  xp:6,  ingredients:[{itemId:'milk',quantity:2}] },
   { id:'butter',     name:'Butter',      src:'🧈', category:'dairy', machine:'Dairy', levelRequired:9,  productionTime:1500,  sellPrice:82,  xp:10, ingredients:[{itemId:'milk',quantity:2}] },
@@ -124,7 +125,7 @@ export const ITEMS: Item[] = [
   { id:'brown_sugar', name:'Brown Sugar',  src:'🟤', category:'sugar', machine:'Sugar Mill', levelRequired:7,  productionTime:1200, sellPrice:32, xp:4, ingredients:[{itemId:'sugarcane',quantity:2}] },
 
   // ══════════════════════════════════════════════════════════
-  // BBQ GRILL — Barbecue (Niveau 9)
+  // BBQ GRILL
   // ══════════════════════════════════════════════════════════
   { id:'pancake',          name:'Pancake',           src:'🥞', category:'bbq', machine:'BBQ Grill', levelRequired:9,  productionTime:1500,  sellPrice:108, xp:13, ingredients:[{itemId:'wheat',quantity:2},{itemId:'egg',quantity:1},{itemId:'milk',quantity:1}] },
   { id:'bacon_eggs',       name:'Bacon & Eggs',      src:'🍳', category:'bbq', machine:'BBQ Grill', levelRequired:11, productionTime:3060,  sellPrice:201, xp:24, ingredients:[{itemId:'bacon',quantity:2},{itemId:'egg',quantity:2}] },
@@ -144,7 +145,7 @@ export const ITEMS: Item[] = [
   { id:'fish_skewer',      name:'Fish Skewer',       src:'🐟', category:'bbq', machine:'BBQ Grill', levelRequired:96, productionTime:1500,  sellPrice:176, xp:21, ingredients:[{itemId:'fish_fillet',quantity:3}] },
 
   // ══════════════════════════════════════════════════════════
-  // CAKE OVEN — Four à gâteaux (Niveau 21)
+  // CAKE OVEN
   // ══════════════════════════════════════════════════════════
   { id:'carrot_cake',      name:'Carrot Cake',        src:'🎂', category:'cake', machine:'Cake Oven', levelRequired:21, productionTime:4560,  sellPrice:165, xp:20, ingredients:[{itemId:'carrot',quantity:4},{itemId:'egg',quantity:2}] },
   { id:'cream_cake',       name:'Cream Cake',         src:'🎂', category:'cake', machine:'Cake Oven', levelRequired:23, productionTime:9180,  sellPrice:219, xp:26, ingredients:[{itemId:'cream',quantity:2},{itemId:'white_sugar',quantity:1},{itemId:'egg',quantity:2}] },
@@ -163,7 +164,7 @@ export const ITEMS: Item[] = [
   { id:'pomegranate_cake', name:'Pomegranate Cake',   src:'🔴', category:'cake', machine:'Cake Oven', levelRequired:108,productionTime:9600,  sellPrice:316, xp:38, ingredients:[{itemId:'pomegranate',quantity:3},{itemId:'white_sugar',quantity:1}] },
 
   // ══════════════════════════════════════════════════════════
-  // ICE CREAM MAKER — Sorbetière (Niveau 29)
+  // ICE CREAM MAKER
   // ══════════════════════════════════════════════════════════
   { id:'vanilla_ice_cream',    name:'Vanilla Ice Cream',    src:'🍦', category:'ice_cream', machine:'Ice Cream Maker', levelRequired:29, productionTime:6120,  sellPrice:172, xp:20, ingredients:[{itemId:'milk',quantity:2},{itemId:'white_sugar',quantity:1},{itemId:'cream',quantity:1}] },
   { id:'cherry_popsicle',      name:'Cherry Popsicle',      src:'🍭', category:'ice_cream', machine:'Ice Cream Maker', levelRequired:33, productionTime:9180,  sellPrice:352, xp:42, ingredients:[{itemId:'cherry',quantity:3},{itemId:'white_sugar',quantity:1}] },
@@ -180,7 +181,7 @@ export const ITEMS: Item[] = [
   { id:'fruit_sorbet',         name:'Fruit Sorbet',         src:'🍑', category:'ice_cream', machine:'Ice Cream Maker', levelRequired:106,productionTime:3060,  sellPrice:518, xp:62, ingredients:[{itemId:'peach',quantity:2},{itemId:'mango',quantity:1}] },
 
   // ══════════════════════════════════════════════════════════
-  // PIE OVEN — Four à tarte (Niveau 14)
+  // PIE OVEN
   // ══════════════════════════════════════════════════════════
   { id:'carrot_pie',     name:'Carrot Pie',      src:'🥧', category:'pie', machine:'Pie Oven', levelRequired:14, productionTime:3060,  sellPrice:82,  xp:10, ingredients:[{itemId:'carrot',quantity:3},{itemId:'egg',quantity:1}] },
   { id:'pumpkin_pie',    name:'Pumpkin Pie',     src:'🎃', category:'pie', machine:'Pie Oven', levelRequired:15, productionTime:6120,  sellPrice:158, xp:19, ingredients:[{itemId:'pumpkin',quantity:2},{itemId:'egg',quantity:1}] },
@@ -199,7 +200,7 @@ export const ITEMS: Item[] = [
   { id:'eggplant_parmesan',name:'Eggplant Parmesan', src:'🍆',category:'pie',machine:'Pie Oven',levelRequired:99,productionTime:2280, sellPrice:442, xp:53, ingredients:[{itemId:'cheese',quantity:2}] },
 
   // ══════════════════════════════════════════════════════════
-  // POPCORN POT — Pot à popcorn (Niveau 8)
+  // POPCORN POT
   // ══════════════════════════════════════════════════════════
   { id:'popcorn',          name:'Popcorn',           src:'🍿', category:'popcorn', machine:'Popcorn Pot', levelRequired:8,  productionTime:1500,  sellPrice:32,  xp:4,  ingredients:[{itemId:'corn',quantity:2}] },
   { id:'buttered_popcorn', name:'Buttered Popcorn',  src:'🍿', category:'popcorn', machine:'Popcorn Pot', levelRequired:16, productionTime:3060,  sellPrice:126, xp:15, ingredients:[{itemId:'popcorn',quantity:1},{itemId:'butter',quantity:1}] },
@@ -209,7 +210,7 @@ export const ITEMS: Item[] = [
   { id:'snack_mix',        name:'Snack Mix',          src:'🥣', category:'popcorn', machine:'Popcorn Pot', levelRequired:64, productionTime:2280,  sellPrice:309, xp:50, ingredients:[{itemId:'popcorn',quantity:2},{itemId:'peanut',quantity:1}] },
 
   // ══════════════════════════════════════════════════════════
-  // LOOM — Métier à tisser (Niveau 17)
+  // LOOM
   // ══════════════════════════════════════════════════════════
   { id:'sweater',       name:'Sweater',        src:'🧥', category:'loom', machine:'Loom', levelRequired:17, productionTime:6120, sellPrice:151, xp:18, ingredients:[{itemId:'wool',quantity:3}] },
   { id:'cotton_fabric', name:'Cotton Fabric',  src:'🧶', category:'loom', machine:'Loom', levelRequired:18, productionTime:1500, sellPrice:108, xp:13, ingredients:[{itemId:'cotton',quantity:4}] },
@@ -219,7 +220,7 @@ export const ITEMS: Item[] = [
   { id:'flower_shawl',  name:'Flower Shawl',   src:'🌸', category:'loom', machine:'Loom', levelRequired:71, productionTime:4560, sellPrice:295, xp:35, ingredients:[{itemId:'cotton_fabric',quantity:2}] },
 
   // ══════════════════════════════════════════════════════════
-  // SEWING MACHINE — Machine à coudre (Niveau 19)
+  // SEWING MACHINE
   // ══════════════════════════════════════════════════════════
   { id:'wooly_chaps',  name:'Wooly Chaps',   src:'🤠', category:'loom', machine:'Sewing Machine', levelRequired:21, productionTime:4560,  sellPrice:309,  xp:37,  ingredients:[{itemId:'wool',quantity:4}] },
   { id:'violet_dress', name:'Violet Dress',  src:'👗', category:'loom', machine:'Sewing Machine', levelRequired:25, productionTime:6840,  sellPrice:327,  xp:39,  ingredients:[{itemId:'indigo',quantity:3},{itemId:'cotton_fabric',quantity:2}] },
@@ -228,7 +229,7 @@ export const ITEMS: Item[] = [
   { id:'blanket',      name:'Blanket',       src:'🫂', category:'loom', machine:'Sewing Machine', levelRequired:59, productionTime:10680, sellPrice:1098, xp:131, ingredients:[{itemId:'cotton_fabric',quantity:5},{itemId:'wool',quantity:3}] },
 
   // ══════════════════════════════════════════════════════════
-  // JAM MAKER — Fabricant de confitures (Niveau 35)
+  // JAM MAKER
   // ══════════════════════════════════════════════════════════
   { id:'apple_jam',       name:'Apple Jam',        src:'🍎', category:'jam', machine:'Jam Maker', levelRequired:35, productionTime:18360, sellPrice:219, xp:26, ingredients:[{itemId:'apple',quantity:4}] },
   { id:'raspberry_jam',   name:'Raspberry Jam',    src:'🫐', category:'jam', machine:'Jam Maker', levelRequired:36, productionTime:21420, sellPrice:252, xp:30, ingredients:[{itemId:'raspberry',quantity:4}] },
@@ -243,7 +244,7 @@ export const ITEMS: Item[] = [
   { id:'passion_fruit_jam',name:'Passion Fruit Jam', src:'🟡',category:'jam',machine:'Jam Maker', levelRequired:96, productionTime:16320, sellPrice:118, xp:14, ingredients:[{itemId:'passion_fruit',quantity:4}] },
 
   // ══════════════════════════════════════════════════════════
-  // JUICE PRESS — Presse à jus (Niveau 26)
+  // JUICE PRESS
   // ══════════════════════════════════════════════════════════
   { id:'carrot_juice',       name:'Carrot Juice',        src:'🥕', category:'juice', machine:'Juice Press', levelRequired:26, productionTime:1500,  sellPrice:46,  xp:6,  ingredients:[{itemId:'carrot',quantity:3}] },
   { id:'apple_juice',        name:'Apple Juice',         src:'🍎', category:'juice', machine:'Juice Press', levelRequired:28, productionTime:6120,  sellPrice:129, xp:15, ingredients:[{itemId:'apple',quantity:3}] },
@@ -259,13 +260,13 @@ export const ITEMS: Item[] = [
   { id:'guava_juice',        name:'Guava Juice',         src:'🟢', category:'juice', machine:'Juice Press', levelRequired:104,productionTime:2760,  sellPrice:252, xp:30, ingredients:[{itemId:'guava',quantity:3}] },
 
   // ══════════════════════════════════════════════════════════
-  // HONEY EXTRACTOR — Extracteur de miel (Niveau 39)
+  // HONEY EXTRACTOR
   // ══════════════════════════════════════════════════════════
   { id:'honey',   name:'Honey',    src:'🍯', category:'jam',  machine:'Honey Extractor', levelRequired:39, productionTime:1020, sellPrice:154, xp:19, ingredients:[{itemId:'honeycomb',quantity:2}] },
   { id:'beeswax', name:'Beeswax',  src:'🕯️', category:'jam',  machine:'Honey Extractor', levelRequired:48, productionTime:2280, sellPrice:234, xp:28, ingredients:[{itemId:'honeycomb',quantity:3}] },
 
   // ══════════════════════════════════════════════════════════
-  // COFFEE KIOSK — Kiosque à café (Niveau 42)
+  // COFFEE KIOSK
   // ══════════════════════════════════════════════════════════
   { id:'espresso',       name:'Espresso',        src:'☕', category:'juice', machine:'Coffee Kiosk', levelRequired:42, productionTime:240,  sellPrice:248, xp:29, ingredients:[{itemId:'coffee',quantity:2}] },
   { id:'caffe_latte',    name:'Caffe Latte',     src:'🧋', category:'juice', machine:'Coffee Kiosk', levelRequired:43, productionTime:480,  sellPrice:219, xp:26, ingredients:[{itemId:'coffee',quantity:1},{itemId:'milk',quantity:2}] },
@@ -276,7 +277,7 @@ export const ITEMS: Item[] = [
   { id:'iced_banana_latte',name:'Iced Banana Latte', src:'🍌',category:'juice',machine:'Coffee Kiosk',levelRequired:88,productionTime:1020, sellPrice:277, xp:33, ingredients:[{itemId:'banana',quantity:2},{itemId:'milk',quantity:2}] },
 
   // ══════════════════════════════════════════════════════════
-  // SOUP KITCHEN — Soupe populaire (Niveau 46)
+  // SOUP KITCHEN
   // ══════════════════════════════════════════════════════════
   { id:'lobster_soup',  name:'Lobster Soup',   src:'🦞', category:'bbq', machine:'Soup Kitchen', levelRequired:46, productionTime:7560,  sellPrice:612, xp:73, ingredients:[{itemId:'lobster_tail',quantity:2}] },
   { id:'tomato_soup',   name:'Tomato Soup',    src:'🍅', category:'bbq', machine:'Soup Kitchen', levelRequired:47, productionTime:4560,  sellPrice:478, xp:57, ingredients:[{itemId:'tomato',quantity:4}] },
@@ -292,7 +293,7 @@ export const ITEMS: Item[] = [
   { id:'mushroom_soup', name:'Mushroom Soup',  src:'🍄', category:'bbq', machine:'Soup Kitchen', levelRequired:104,productionTime:4080,  sellPrice:176, xp:21, ingredients:[{itemId:'mushroom',quantity:3}] },
 
   // ══════════════════════════════════════════════════════════
-  // SUSHI BAR — Bar à sushis (Niveau 56)
+  // SUSHI BAR
   // ══════════════════════════════════════════════════════════
   { id:'sushi_roll',  name:'Sushi Roll',   src:'🍱', category:'bbq', machine:'Sushi Bar', levelRequired:56, productionTime:3060,  sellPrice:489, xp:58, ingredients:[{itemId:'rice',quantity:3},{itemId:'fish_fillet',quantity:2}] },
   { id:'lobster_sushi',name:'Lobster Sushi', src:'🦞',category:'bbq',machine:'Sushi Bar', levelRequired:59, productionTime:3060,  sellPrice:637, xp:76, ingredients:[{itemId:'rice',quantity:2},{itemId:'lobster_tail',quantity:1}] },
@@ -301,7 +302,7 @@ export const ITEMS: Item[] = [
   { id:'rice_ball',   name:'Rice Ball',    src:'🍙', category:'bbq', machine:'Sushi Bar', levelRequired:110,productionTime:2280,  sellPrice:464, xp:55, ingredients:[{itemId:'rice',quantity:3}] },
 
   // ══════════════════════════════════════════════════════════
-  // SALAD BAR — Bar à salades (Niveau 58)
+  // SALAD BAR
   // ══════════════════════════════════════════════════════════
   { id:'feta_salad',   name:'Feta Salad',    src:'🥗', category:'bbq', machine:'Salad Bar', levelRequired:58, productionTime:4560,  sellPrice:745, xp:89, ingredients:[{itemId:'lettuce',quantity:3},{itemId:'goat_cheese',quantity:2}] },
   { id:'bean_salad',   name:'Bean Salad',    src:'🫘', category:'bbq', machine:'Salad Bar', levelRequired:58, productionTime:3060,  sellPrice:169, xp:20, ingredients:[{itemId:'soybean',quantity:4}] },
@@ -314,7 +315,7 @@ export const ITEMS: Item[] = [
   { id:'orange_salad', name:'Orange Salad',  src:'🍊', category:'bbq', machine:'Salad Bar', levelRequired:117,productionTime:2280,  sellPrice:558, xp:66, ingredients:[{itemId:'orange',quantity:3},{itemId:'lettuce',quantity:2}] },
 
   // ══════════════════════════════════════════════════════════
-  // SANDWICH BAR — Bar à sandwichs (Niveau 61)
+  // SANDWICH BAR
   // ══════════════════════════════════════════════════════════
   { id:'veggie_bagel',   name:'Veggie Bagel',    src:'🥯', category:'bbq', machine:'Sandwich Bar', levelRequired:61, productionTime:2040, sellPrice:532, xp:63, ingredients:[{itemId:'wheat',quantity:3},{itemId:'carrot',quantity:2}] },
   { id:'bacon_toast',    name:'Bacon Toast',     src:'🍞', category:'bbq', machine:'Sandwich Bar', levelRequired:65, productionTime:5100, sellPrice:648, xp:77, ingredients:[{itemId:'bread',quantity:2},{itemId:'bacon',quantity:3}] },
@@ -325,7 +326,7 @@ export const ITEMS: Item[] = [
   { id:'goat_cheese_toast',name:'Goat Cheese Toast', src:'🧀',category:'bbq',machine:'Sandwich Bar',levelRequired:92,productionTime:2520, sellPrice:302, xp:36, ingredients:[{itemId:'bread',quantity:2},{itemId:'goat_cheese',quantity:1}] },
 
   // ══════════════════════════════════════════════════════════
-  // SMOOTHIE MIXER — Mixeur à smoothie (Niveau 64)
+  // SMOOTHIE MIXER
   // ══════════════════════════════════════════════════════════
   { id:'berry_smoothie',  name:'Berry Smoothie',   src:'🫐', category:'juice', machine:'Smoothie Mixer', levelRequired:64, productionTime:3780, sellPrice:547, xp:65, ingredients:[{itemId:'raspberry',quantity:2},{itemId:'blueberry',quantity:2}] },
   { id:'green_smoothie',  name:'Green Smoothie',   src:'🥬', category:'juice', machine:'Smoothie Mixer', levelRequired:66, productionTime:2280, sellPrice:320, xp:38, ingredients:[{itemId:'lettuce',quantity:3},{itemId:'apple',quantity:2}] },
@@ -335,13 +336,13 @@ export const ITEMS: Item[] = [
   { id:'tropical_smoothie',name:'Tropical Smoothie', src:'🥭',category:'juice',machine:'Smoothie Mixer',levelRequired:104,productionTime:2040, sellPrice:475, xp:57, ingredients:[{itemId:'mango',quantity:2},{itemId:'coconut',quantity:1}] },
 
   // ══════════════════════════════════════════════════════════
-  // PASTA MACHINE — Machine à pâtes (Niveau 67)
+  // PASTA MACHINE
   // ══════════════════════════════════════════════════════════
   { id:'fresh_pasta',  name:'Fresh Pasta',   src:'🍝', category:'bbq', machine:'Pasta Machine', levelRequired:67, productionTime:720,  sellPrice:43,  xp:5,  ingredients:[{itemId:'wheat',quantity:3},{itemId:'egg',quantity:1}] },
   { id:'rice_noodles', name:'Rice Noodles',  src:'🍜', category:'bbq', machine:'Pasta Machine', levelRequired:73, productionTime:1020, sellPrice:100, xp:12, ingredients:[{itemId:'rice',quantity:3}] },
 
   // ══════════════════════════════════════════════════════════
-  // PASTA KITCHEN — Cuisine de pâtes (Niveau 72)
+  // PASTA KITCHEN
   // ══════════════════════════════════════════════════════════
   { id:'gnocchi',       name:'Gnocchi',        src:'🫙', category:'bbq', machine:'Pasta Kitchen', levelRequired:72, productionTime:4080,  sellPrice:475, xp:57, ingredients:[{itemId:'potato',quantity:3},{itemId:'fresh_pasta',quantity:1}] },
   { id:'veggie_lasagna',name:'Veggie Lasagna', src:'🍝', category:'bbq', machine:'Pasta Kitchen', levelRequired:74, productionTime:5100,  sellPrice:532, xp:63, ingredients:[{itemId:'fresh_pasta',quantity:2},{itemId:'tomato',quantity:3},{itemId:'cheese',quantity:1}] },
@@ -352,7 +353,7 @@ export const ITEMS: Item[] = [
   { id:'mushroom_pasta',name:'Mushroom Pasta', src:'🍄', category:'bbq', machine:'Pasta Kitchen', levelRequired:101,productionTime:3780,  sellPrice:280, xp:33, ingredients:[{itemId:'fresh_pasta',quantity:2},{itemId:'mushroom',quantity:2}] },
 
   // ══════════════════════════════════════════════════════════
-  // SAUCE MAKER — Machine à sauce (Niveau 54)
+  // SAUCE MAKER
   // ══════════════════════════════════════════════════════════
   { id:'soy_sauce',    name:'Soy Sauce',     src:'🫙', category:'bbq', machine:'Sauce Maker', levelRequired:54, productionTime:9180, sellPrice:154, xp:19, ingredients:[{itemId:'soybean',quantity:4}] },
   { id:'olive_oil',    name:'Olive Oil',     src:'🫒', category:'bbq', machine:'Sauce Maker', levelRequired:60, productionTime:2280, sellPrice:277, xp:33, ingredients:[{itemId:'olive',quantity:4}] },
@@ -364,7 +365,7 @@ export const ITEMS: Item[] = [
   { id:'hummus',       name:'Hummus',        src:'🫘', category:'bbq', machine:'Sauce Maker', levelRequired:95, productionTime:1500, sellPrice:277, xp:33, ingredients:[{itemId:'soybean',quantity:3}] },
 
   // ══════════════════════════════════════════════════════════
-  // JEWELER — Bijoutier (Niveau 38)
+  // JEWELER
   // ══════════════════════════════════════════════════════════
   { id:'bracelet',     name:'Bracelet',      src:'📿', category:'loom', machine:'Jeweler', levelRequired:38, productionTime:5040,  sellPrice:514, xp:61, ingredients:[{itemId:'wool',quantity:2}] },
   { id:'necklace',     name:'Necklace',      src:'💎', category:'loom', machine:'Jeweler', levelRequired:39, productionTime:9180,  sellPrice:727, xp:87, ingredients:[{itemId:'wool',quantity:3}] },
@@ -373,7 +374,7 @@ export const ITEMS: Item[] = [
   { id:'flower_pendant',name:'Flower Pendant', src:'🌸',category:'loom',machine:'Jeweler', levelRequired:98, productionTime:3060,  sellPrice:698, xp:83, ingredients:[{itemId:'cotton_fabric',quantity:2}] },
 
   // ══════════════════════════════════════════════════════════
-  // HOT DOG STAND — Stand de hot-dogs (Niveau 75)
+  // HOT DOG STAND
   // ══════════════════════════════════════════════════════════
   { id:'hot_dog',   name:'Hot Dog',    src:'🌭', category:'bbq', machine:'Hot Dog Stand', levelRequired:75, productionTime:1500, sellPrice:370, xp:44, ingredients:[{itemId:'bread',quantity:2},{itemId:'bacon',quantity:1}] },
   { id:'tofu_dog',  name:'Tofu Dog',   src:'🌭', category:'bbq', machine:'Hot Dog Stand', levelRequired:76, productionTime:2280, sellPrice:367, xp:44, ingredients:[{itemId:'bread',quantity:2}] },
@@ -381,7 +382,7 @@ export const ITEMS: Item[] = [
   { id:'onion_dog', name:'Onion Dog',  src:'🧅', category:'bbq', machine:'Hot Dog Stand', levelRequired:80, productionTime:3780, sellPrice:306, xp:36, ingredients:[{itemId:'onion',quantity:2},{itemId:'bread',quantity:2}] },
 
   // ══════════════════════════════════════════════════════════
-  // TACO KITCHEN — Cuisine de tacos (Niveau 77)
+  // TACO KITCHEN
   // ══════════════════════════════════════════════════════════
   { id:'taco',           name:'Taco',             src:'🌮', category:'bbq', machine:'Taco Kitchen', levelRequired:77, productionTime:2280, sellPrice:396, xp:47, ingredients:[{itemId:'wheat',quantity:2},{itemId:'tomato',quantity:2}] },
   { id:'spicy_bean_taco',name:'Spicy Bean Taco',  src:'🌶️', category:'bbq', machine:'Taco Kitchen', levelRequired:77, productionTime:6120, sellPrice:453, xp:54, ingredients:[{itemId:'soybean',quantity:3},{itemId:'chili_pepper',quantity:1}] },
@@ -390,7 +391,7 @@ export const ITEMS: Item[] = [
   { id:'nachos',         name:'Nachos',           src:'🌽', category:'bbq', machine:'Taco Kitchen', levelRequired:87, productionTime:3780, sellPrice:432, xp:52, ingredients:[{itemId:'corn',quantity:3},{itemId:'salsa',quantity:1}] },
 
   // ══════════════════════════════════════════════════════════
-  // TEA STAND — Stand à thé (Niveau 80)
+  // TEA STAND
   // ══════════════════════════════════════════════════════════
   { id:'green_tea',        name:'Green Tea',         src:'🍵', category:'juice', machine:'Tea Stand', levelRequired:80,  productionTime:1500, sellPrice:241, xp:29, ingredients:[{itemId:'mint',quantity:2}] },
   { id:'milk_tea',         name:'Milk Tea',          src:'🧋', category:'juice', machine:'Tea Stand', levelRequired:81,  productionTime:2280, sellPrice:190, xp:23, ingredients:[{itemId:'milk',quantity:2}] },
@@ -404,7 +405,7 @@ export const ITEMS: Item[] = [
   { id:'pomegranate_tea',  name:'Pomegranate Tea',   src:'🔴', category:'juice', machine:'Tea Stand', levelRequired:107, productionTime:2040, sellPrice:313, xp:37, ingredients:[{itemId:'pomegranate',quantity:2}] },
 
   // ══════════════════════════════════════════════════════════
-  // FLOWER SHOP — Fleuriste (Niveau 49)
+  // FLOWER SHOP
   // ══════════════════════════════════════════════════════════
   { id:'rustic_bouquet',    name:'Rustic Bouquet',     src:'💐', category:'loom', machine:'Flower Shop', levelRequired:49,  productionTime:2280,  sellPrice:208, xp:25, ingredients:[] },
   { id:'vibrant_bouquet',   name:'Vibrant Bouquet',    src:'🌹', category:'loom', machine:'Flower Shop', levelRequired:65,  productionTime:1020,  sellPrice:338, xp:40, ingredients:[] },
@@ -414,7 +415,7 @@ export const ITEMS: Item[] = [
   { id:'veggie_bouquet',    name:'Veggie Bouquet',     src:'🥦', category:'loom', machine:'Flower Shop', levelRequired:106, productionTime:720,   sellPrice:352, xp:42, ingredients:[] },
 
   // ══════════════════════════════════════════════════════════
-  // CANDLE MAKER — Fabricant de bougies (Niveau 48)
+  // CANDLE MAKER
   // ══════════════════════════════════════════════════════════
   { id:'strawberry_candle',name:'Strawberry Candle', src:'🕯️',category:'loom',machine:'Candle Maker',levelRequired:48,productionTime:6120, sellPrice:370, xp:44, ingredients:[{itemId:'beeswax',quantity:1},{itemId:'strawberry',quantity:2}] },
   { id:'raspberry_candle', name:'Raspberry Candle',  src:'🕯️',category:'loom',machine:'Candle Maker',levelRequired:52,productionTime:5340, sellPrice:360, xp:43, ingredients:[{itemId:'beeswax',quantity:1},{itemId:'raspberry',quantity:2}] },
@@ -423,7 +424,7 @@ export const ITEMS: Item[] = [
   { id:'floral_candle',    name:'Floral Candle',     src:'🕯️',category:'loom',machine:'Candle Maker',levelRequired:95,productionTime:6120, sellPrice:442, xp:53, ingredients:[{itemId:'beeswax',quantity:1},{itemId:'chamomile',quantity:2}] },
 
   // ══════════════════════════════════════════════════════════
-  // FONDUE POT — Caquelon à fondue (Niveau 81)
+  // FONDUE POT
   // ══════════════════════════════════════════════════════════
   { id:'chocolate_fondue',name:'Chocolate Fondue', src:'🫕',category:'bbq',machine:'Fondue Pot',levelRequired:81, productionTime:1260, sellPrice:626, xp:74, ingredients:[{itemId:'cacao',quantity:3},{itemId:'cream',quantity:2}] },
   { id:'bacon_fondue',    name:'Bacon Fondue',     src:'🥓',category:'bbq',machine:'Fondue Pot',levelRequired:86, productionTime:1500, sellPrice:507, xp:60, ingredients:[{itemId:'bacon',quantity:3},{itemId:'cheese',quantity:2}] },
@@ -431,7 +432,7 @@ export const ITEMS: Item[] = [
   { id:'tropical_fondue', name:'Tropical Fondue',  src:'🍍',category:'bbq',machine:'Fondue Pot',levelRequired:100,productionTime:1740, sellPrice:417, xp:50, ingredients:[{itemId:'pineapple',quantity:2},{itemId:'coconut',quantity:1}] },
 
   // ══════════════════════════════════════════════════════════
-  // DONUT MAKER — Fabricant de beignets (Niveau 76)
+  // DONUT MAKER
   // ══════════════════════════════════════════════════════════
   { id:'plain_donut',    name:'Plain Donut',     src:'🍩',category:'bakery',machine:'Donut Maker',levelRequired:76, productionTime:720,  sellPrice:129, xp:15, ingredients:[{itemId:'wheat',quantity:2},{itemId:'egg',quantity:1}] },
   { id:'sprinkled_donut',name:'Sprinkled Donut', src:'🍩',category:'bakery',machine:'Donut Maker',levelRequired:79, productionTime:1020, sellPrice:313, xp:37, ingredients:[{itemId:'wheat',quantity:2},{itemId:'white_sugar',quantity:1}] },
@@ -441,7 +442,7 @@ export const ITEMS: Item[] = [
   { id:'filled_donut',   name:'Filled Donut',    src:'🍩',category:'bakery',machine:'Donut Maker',levelRequired:93, productionTime:1740, sellPrice:403, xp:48, ingredients:[{itemId:'cream',quantity:2},{itemId:'strawberry_jam',quantity:1}] },
 
   // ══════════════════════════════════════════════════════════
-  // FUDGE SHOP — Boutique de fudge (Niveau 99)
+  // FUDGE SHOP
   // ══════════════════════════════════════════════════════════
   { id:'rich_fudge',  name:'Rich Fudge',   src:'🍫',category:'bakery',machine:'Fudge Shop',levelRequired:99,  productionTime:6120,  sellPrice:644, xp:77,  ingredients:[{itemId:'cacao',quantity:3},{itemId:'cream',quantity:2}] },
   { id:'mint_fudge',  name:'Mint Fudge',   src:'🌿',category:'bakery',machine:'Fudge Shop',levelRequired:102, productionTime:7560,  sellPrice:522, xp:62,  ingredients:[{itemId:'mint',quantity:3},{itemId:'white_sugar',quantity:2}] },
@@ -450,7 +451,7 @@ export const ITEMS: Item[] = [
   { id:'peanut_fudge',name:'Peanut Fudge', src:'🥜',category:'bakery',machine:'Fudge Shop',levelRequired:111, productionTime:4560,  sellPrice:1141,xp:136, ingredients:[{itemId:'peanut',quantity:3},{itemId:'cacao',quantity:2}] },
 
   // ══════════════════════════════════════════════════════════
-  // HATTER — Chapelier (Niveau 70)
+  // HATTER (was listed as Hat Maker in items but Hatter in types)
   // ══════════════════════════════════════════════════════════
   { id:'cloche_hat',   name:'Cloche Hat',    src:'🎩',category:'loom',machine:'Hatter',levelRequired:70, productionTime:6120,  sellPrice:468, xp:56, ingredients:[{itemId:'wool',quantity:3}] },
   { id:'top_hat',      name:'Top Hat',       src:'🎩',category:'loom',machine:'Hatter',levelRequired:72, productionTime:10680, sellPrice:619, xp:74, ingredients:[{itemId:'wool',quantity:4}] },
@@ -458,7 +459,7 @@ export const ITEMS: Item[] = [
   { id:'flower_crown', name:'Flower Crown',  src:'💐',category:'loom',machine:'Hatter',levelRequired:86, productionTime:6120,  sellPrice:331, xp:40, ingredients:[{itemId:'cotton_fabric',quantity:2}] },
 
   // ══════════════════════════════════════════════════════════
-  // BATH KIOSK — Kiosque de bain (Niveau 84)
+  // BATH KIOSK
   // ══════════════════════════════════════════════════════════
   { id:'honey_soap',     name:'Honey Soap',      src:'🧼',category:'loom',machine:'Bath Kiosk',levelRequired:84,  productionTime:3060,  sellPrice:327, xp:39, ingredients:[{itemId:'honey',quantity:2},{itemId:'beeswax',quantity:1}] },
   { id:'lemon_lotion',   name:'Lemon Lotion',    src:'🍋',category:'loom',machine:'Bath Kiosk',levelRequired:84,  productionTime:3780,  sellPrice:403, xp:48, ingredients:[{itemId:'lemon',quantity:3},{itemId:'olive_oil',quantity:1}] },
@@ -466,7 +467,7 @@ export const ITEMS: Item[] = [
   { id:'honey_face_mask',name:'Honey Face Mask', src:'🍯',category:'loom',machine:'Bath Kiosk',levelRequired:99,  productionTime:4560,  sellPrice:320, xp:38, ingredients:[{itemId:'honey',quantity:3},{itemId:'chamomile',quantity:2}] },
 
   // ══════════════════════════════════════════════════════════
-  // PORRIDGE BAR — Bar à porridge (Niveau 119)
+  // PORRIDGE BAR
   // ══════════════════════════════════════════════════════════
   { id:'apple_porridge',   name:'Apple Porridge',    src:'🍎',category:'bakery',machine:'Porridge Bar',levelRequired:119,productionTime:1020, sellPrice:522, xp:62, ingredients:[{itemId:'apple',quantity:2},{itemId:'wheat',quantity:2}] },
   { id:'breakfast_bowl',   name:'Breakfast Bowl',    src:'🥣',category:'bakery',machine:'Porridge Bar',levelRequired:119,productionTime:2520, sellPrice:604, xp:72, ingredients:[{itemId:'wheat',quantity:3},{itemId:'milk',quantity:2}] },
@@ -474,14 +475,14 @@ export const ITEMS: Item[] = [
   { id:'fresh_porridge',   name:'Fresh Porridge',    src:'🫐',category:'bakery',machine:'Porridge Bar',levelRequired:122,productionTime:1740, sellPrice:435, xp:52, ingredients:[{itemId:'wheat',quantity:2},{itemId:'blueberry',quantity:2}] },
 
   // ══════════════════════════════════════════════════════════
-  // MILKSHAKE BAR — Bar à milkshakes (Niveau 124)
+  // MILKSHAKE BAR
   // ══════════════════════════════════════════════════════════
   { id:'vanilla_milkshake',name:'Vanilla Milkshake', src:'🥤',category:'juice',machine:'Milkshake Bar',levelRequired:124,productionTime:2280, sellPrice:673, xp:80, ingredients:[{itemId:'vanilla_ice_cream',quantity:1},{itemId:'milk',quantity:2}] },
   { id:'mocha_milkshake',  name:'Mocha Milkshake',   src:'☕',category:'juice',machine:'Milkshake Bar',levelRequired:125,productionTime:1500, sellPrice:856, xp:102,ingredients:[{itemId:'espresso',quantity:1},{itemId:'chocolate_ice_cream',quantity:1}] },
   { id:'fruity_milkshake', name:'Fruity Milkshake',  src:'🍓',category:'juice',machine:'Milkshake Bar',levelRequired:126,productionTime:1740, sellPrice:759, xp:90, ingredients:[{itemId:'strawberry_ice_cream',quantity:1},{itemId:'pineapple_juice',quantity:1}] },
 
   // ══════════════════════════════════════════════════════════
-  // WAFFLE MAKER — Gaufrier (Niveau 114)
+  // WAFFLE MAKER
   // ══════════════════════════════════════════════════════════
   { id:'plain_waffle',     name:'Plain Waffle',      src:'🧇',category:'bakery',machine:'Waffle Maker',levelRequired:114,productionTime:1260, sellPrice:198, xp:24, ingredients:[{itemId:'wheat',quantity:2},{itemId:'egg',quantity:1}] },
   { id:'berry_waffle',     name:'Berry Waffle',      src:'🍓',category:'bakery',machine:'Waffle Maker',levelRequired:114,productionTime:1740, sellPrice:604, xp:24, ingredients:[{itemId:'wheat',quantity:2},{itemId:'strawberry',quantity:2}] },
@@ -490,7 +491,7 @@ export const ITEMS: Item[] = [
   { id:'breakfast_waffle', name:'Breakfast Waffle',  src:'🥞',category:'bakery',machine:'Waffle Maker',levelRequired:119,productionTime:2280, sellPrice:424, xp:51, ingredients:[{itemId:'wheat',quantity:2},{itemId:'egg',quantity:2},{itemId:'bacon',quantity:1}] },
 
   // ══════════════════════════════════════════════════════════
-  // CUPCAKE MAKER — Fabricant de cupcakes (Niveau 109)
+  // CUPCAKE MAKER
   // ══════════════════════════════════════════════════════════
   { id:'plain_cupcake',   name:'Plain Cupcake',    src:'🧁',category:'bakery',machine:'Cupcake Maker',levelRequired:109,productionTime:2040, sellPrice:280, xp:34, ingredients:[{itemId:'wheat',quantity:2},{itemId:'egg',quantity:1},{itemId:'white_sugar',quantity:1}] },
   { id:'guava_cupcake',   name:'Guava Cupcake',    src:'🟢',category:'bakery',machine:'Cupcake Maker',levelRequired:109,productionTime:3540, sellPrice:583, xp:70, ingredients:[{itemId:'guava',quantity:2},{itemId:'cream',quantity:1}] },
@@ -498,7 +499,7 @@ export const ITEMS: Item[] = [
   { id:'cookie_cupcake',  name:'Cookie Cupcake',   src:'🍪',category:'bakery',machine:'Cupcake Maker',levelRequired:114,productionTime:6120, sellPrice:712, xp:85, ingredients:[{itemId:'cookies',quantity:1},{itemId:'cream',quantity:2}] },
 
   // ══════════════════════════════════════════════════════════
-  // WOK KITCHEN — Cuisine au wok (Niveau 69)
+  // WOK KITCHEN
   // ══════════════════════════════════════════════════════════
   { id:'fried_rice',   name:'Fried Rice',    src:'🍚',category:'bbq',machine:'Wok Kitchen',levelRequired:69, productionTime:3060, sellPrice:205, xp:24, ingredients:[{itemId:'rice',quantity:3},{itemId:'egg',quantity:1}] },
   { id:'spicy_fish',   name:'Spicy Fish',    src:'🐟',category:'bbq',machine:'Wok Kitchen',levelRequired:79, productionTime:4560, sellPrice:543, xp:65, ingredients:[{itemId:'fish_fillet',quantity:3},{itemId:'chili_pepper',quantity:2}] },
@@ -506,7 +507,7 @@ export const ITEMS: Item[] = [
   { id:'tofu_stir_fry',name:'Tofu Stir Fry', src:'🫘',category:'bbq',machine:'Wok Kitchen',levelRequired:89, productionTime:3780, sellPrice:306, xp:37, ingredients:[{itemId:'soybean',quantity:3}] },
 
   // ══════════════════════════════════════════════════════════
-  // OMELET STATION — Station d'omelettes (Niveau 77)
+  // OMELET STATION
   // ══════════════════════════════════════════════════════════
   { id:'colourful_omelet',name:'Colourful Omelet', src:'🥚',category:'bbq',machine:'Omelet Station',levelRequired:77, productionTime:3060, sellPrice:136, xp:16, ingredients:[{itemId:'egg',quantity:3}] },
   { id:'spring_omelet',   name:'Spring Omelet',    src:'🌱',category:'bbq',machine:'Omelet Station',levelRequired:77, productionTime:2040, sellPrice:230, xp:27, ingredients:[{itemId:'egg',quantity:2},{itemId:'asparagus',quantity:1}] },
@@ -514,21 +515,21 @@ export const ITEMS: Item[] = [
   { id:'potato_omelet',   name:'Potato Omelet',    src:'🥔',category:'bbq',machine:'Omelet Station',levelRequired:87, productionTime:3780, sellPrice:270, xp:32, ingredients:[{itemId:'egg',quantity:2},{itemId:'potato',quantity:2}] },
 
   // ══════════════════════════════════════════════════════════
-  // STEW POT — Marmite à ragoût (Niveau 106)
+  // STEW POT
   // ══════════════════════════════════════════════════════════
   { id:'chickpea_stew',name:'Chickpea Stew', src:'🫘',category:'bbq',machine:'Stew Pot',levelRequired:106,productionTime:4560, sellPrice:284, xp:34, ingredients:[{itemId:'soybean',quantity:4}] },
   { id:'chili_stew',   name:'Chili Stew',    src:'🌶️',category:'bbq',machine:'Stew Pot',levelRequired:109,productionTime:6120, sellPrice:370, xp:44, ingredients:[{itemId:'chili_pepper',quantity:3},{itemId:'tomato',quantity:3}] },
   { id:'winter_stew',  name:'Winter Stew',   src:'🥕', category:'bbq',machine:'Stew Pot',levelRequired:112,productionTime:7140, sellPrice:295, xp:35, ingredients:[{itemId:'carrot',quantity:3},{itemId:'potato',quantity:2}] },
 
   // ══════════════════════════════════════════════════════════
-  // YOGURT MAKER — Yaourtière (Niveau 103)
+  // YOGURT MAKER
   // ══════════════════════════════════════════════════════════
   { id:'plain_yogurt',     name:'Plain Yogurt',      src:'🥛',category:'dairy',machine:'Yogurt Maker',levelRequired:103,productionTime:6120, sellPrice:234, xp:28, ingredients:[{itemId:'milk',quantity:3}] },
   { id:'strawberry_yogurt',name:'Strawberry Yogurt', src:'🍓',category:'dairy',machine:'Yogurt Maker',levelRequired:105,productionTime:2040, sellPrice:529, xp:63, ingredients:[{itemId:'milk',quantity:2},{itemId:'strawberry',quantity:3}] },
   { id:'tropical_yogurt',  name:'Tropical Yogurt',   src:'🍍',category:'dairy',machine:'Yogurt Maker',levelRequired:109,productionTime:3060, sellPrice:457, xp:54, ingredients:[{itemId:'milk',quantity:2},{itemId:'pineapple',quantity:2}] },
 
   // ══════════════════════════════════════════════════════════
-  // ESSENTIAL OIL LAB — Labo d'huiles essentielles (Niveau 68)
+  // ESSENTIAL OIL LAB
   // ══════════════════════════════════════════════════════════
   { id:'lemon_essential_oil',    name:'Lemon Essential Oil',     src:'🍋',category:'loom',machine:'Essential Oil Lab',levelRequired:68, productionTime:480,  sellPrice:228, xp:34, ingredients:[{itemId:'lemon',quantity:3}] },
   { id:'chamomile_essential_oil',name:'Chamomile Essential Oil', src:'🌸',category:'loom',machine:'Essential Oil Lab',levelRequired:74, productionTime:480,  sellPrice:72,  xp:34, ingredients:[{itemId:'chamomile',quantity:3}] },
@@ -536,7 +537,7 @@ export const ITEMS: Item[] = [
   { id:'mint_essential_oil',     name:'Mint Essential Oil',      src:'🌿',category:'loom',machine:'Essential Oil Lab',levelRequired:85, productionTime:720,  sellPrice:172, xp:20, ingredients:[{itemId:'mint',quantity:3}] },
 
   // ══════════════════════════════════════════════════════════
-  // PERFUMERY — Parfumerie (Niveau 110)
+  // PERFUMERY
   // ══════════════════════════════════════════════════════════
   { id:'fresh_diffuser',  name:'Fresh Diffuser',   src:'🌸',category:'loom',machine:'Perfumery',levelRequired:110,productionTime:1020, sellPrice:349, xp:42, ingredients:[{itemId:'mint_essential_oil',quantity:2}] },
   { id:'zesty_perfume',   name:'Zesty Perfume',    src:'🍋',category:'loom',machine:'Perfumery',levelRequired:113,productionTime:720,  sellPrice:388, xp:46, ingredients:[{itemId:'lemon_essential_oil',quantity:2}] },
@@ -551,12 +552,14 @@ export const getItem = (id: string): Item | undefined =>
   ITEMS.find(i => i.id === id);
 
 export const getUnlockedItems = (level: number): Item[] =>
-  ITEMS.filter(i => i.levelRequired <= level);
+  ITEMS.filter(i => i.levelRequired <= level && i.category !== 'dev');
 
 export const getItemsByMachine = (machine: string, level: number): Item[] =>
   ITEMS.filter(i => i.machine === machine && i.levelRequired <= level);
 
-export const MACHINES: string[] = [...new Set(ITEMS.map(i => i.machine))].sort();
+export const MACHINES: string[] = [...new Set(
+  ITEMS.filter(i => i.category !== 'dev').map(i => i.machine)
+)].sort();
 
 export const formatTime = (seconds: number): string => {
   if (seconds <= 0)  return '—';
@@ -574,4 +577,6 @@ export const formatTime = (seconds: number): string => {
 
 // Profit per hour
 export const profitPerHour = (item: Item): number =>
-  Math.round((item.sellPrice / item.productionTime) * 3600);
+  item.productionTime > 0
+    ? Math.round((item.sellPrice / item.productionTime) * 3600)
+    : 0;
